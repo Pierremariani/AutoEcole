@@ -1,24 +1,45 @@
 package com.example.autoecole.models;
 
 public class Users {
-    private int idUser;
+    private int numCompte;
+    private String login;
+
     private String mdpUser;
 
-    public Users(int idUser, String mdpUser) {
-        this.idUser = idUser;
+    private int statut;
+
+    public Users(int numCompte, String login, String mdpUser, int statut) {
+        this.numCompte = numCompte;
+        this.login = login;
         this.mdpUser = mdpUser;
+        this.statut = statut;
     }
 
-    public Users(int idUser) {
-        this.idUser = idUser;
+    public Users(String login, String mdpUser, int statut) {
+        this.login = login;
+        this.mdpUser = mdpUser;
+        this.statut = statut;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public Users(String mdpUser, int statut) {
+        this.mdpUser = mdpUser;
+        this.statut = statut;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public int getNumCompte() {
+        return numCompte;
+    }
+
+    public void setNumCompte(int numCompte) {
+        this.numCompte = numCompte;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getMdpUser() {
@@ -29,11 +50,21 @@ public class Users {
         this.mdpUser = mdpUser;
     }
 
+    public int getStatut() {
+        return statut;
+    }
+
+    public void setStatut(int statut) {
+        this.statut = statut;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
-                "idUser=" + idUser +
+                "numCompte=" + numCompte +
+                ", login='" + login + '\'' +
                 ", mdpUser='" + mdpUser + '\'' +
+                ", statut=" + statut +
                 '}';
     }
 }

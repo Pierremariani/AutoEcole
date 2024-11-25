@@ -16,7 +16,15 @@ public class UserController {
         return userService.getAll();
     }
 
-    public void create(int idUser,String mdpUser) throws SQLException {
-        userService.create(idUser,mdpUser);
+    public void create(String identifiant,String mdpUser, int privilege) throws SQLException {
+        userService.create(identifiant,mdpUser,privilege);
+    }
+
+    public ArrayList<String> getLogin() throws SQLException {
+        return userService.getLogin();
+    }
+
+    public boolean verifyLoginMdp(String login, String mdp) throws SQLException {
+        return userService.verifyLoginMdp(login,mdp);
     }
 }

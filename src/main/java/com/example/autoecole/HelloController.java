@@ -38,7 +38,10 @@ public class HelloController implements Initializable {
     @FXML
     protected void onHelloButtonClick() throws SQLException {
         welcomeText.setText("Welcome to JavaFX Application!");
-        userController.create(4,"zebbb");
+
+        //userController.create("teub","paul",0);
         System.out.println(userController.getAll());
+        System.out.println(userController.getLogin());
+        System.out.println(userController.verifyLoginMdp("zebi","paul"));
     }
 }

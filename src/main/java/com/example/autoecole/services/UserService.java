@@ -17,9 +17,16 @@ public class UserService {
         return userRepository.getAll();
     }
 
-    public void create(int idUser, String mdpUser) throws SQLException {
-        Users user = new Users(idUser,mdpUser);
+    public void create(String identifiant,String mdpUser, int privilege) throws SQLException {
+        Users user = new Users(identifiant,mdpUser,privilege);
         userRepository.create(user);
     }
 
+    public ArrayList<String> getLogin() throws SQLException {
+        return userRepository.getLogin();
+    }
+
+    public boolean verifyLoginMdp(String login, String mdp) throws SQLException {
+        return userRepository.verifyLoginMdp(login,mdp);
+    }
 }
