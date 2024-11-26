@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.autoecole.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="756.0" style="-fx-background-color: #1d2128;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autoecole.HelloController">
+   <children>
+      <Pane layoutX="486.0" layoutY="-6.0" prefHeight="564.0" prefWidth="272.0" style="-fx-background-color: #364361;">
+         <children>
+            <Button layoutX="92.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#onInscriptionButtonClicked" text="Inscription" />
+            <TextField fx:id="tftel" layoutX="43.0" layoutY="417.0" />
+            <TextField fx:id="tfville" layoutX="44.0" layoutY="366.0" />
+            <TextField fx:id="tfpostal" layoutX="43.0" layoutY="318.0" />
+            <TextField fx:id="tfadresse" layoutX="44.0" layoutY="270.0" />
+            <TextField fx:id="tfdate" layoutX="44.0" layoutY="207.0" />
+            <TextField fx:id="tfsexe" layoutX="44.0" layoutY="150.0" />
+            <TextField fx:id="tfprenom" layoutX="44.0" layoutY="89.0" />
+            <TextField fx:id="tfnom" layoutX="44.0" layoutY="37.0" />
+            <Label layoutX="70.0" layoutY="239.0" text="Adresse" textFill="#faf8f8">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="59.0" layoutY="190.0" text="Date de naissance" textFill="#f4eeee">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="290.0" text="Code Postal" textFill="#efebeb">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="82.0" layoutY="62.0" text="Prénom" textFill="#fffbfb">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="127.0" text="Sexe" textFill="#f4f0f0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="82.0" layoutY="17.0" prefHeight="17.0" prefWidth="72.0" text="Nom" textFill="#f2f0f0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="99.0" layoutY="343.0" text="Ville" textFill="#fcfafa">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="72.0" layoutY="391.0" text="Téléphone" textFill="#f7f1f1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="558.0" prefWidth="452.0" style="-fx-background-color: #34579c;">
+         <children>
+            <ImageView fx:id="voitute" fitHeight="301.0" fitWidth="452.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../img/voitut.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="228.0" layoutY="15.0" prefHeight="30.0" prefWidth="149.0" text="Incription" textFill="#f7f0f0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="490.0" prefHeight="558.0" prefWidth="266.0" style="-fx-background-color: #364361;" visible="false">
+         <children>
+            <Button fx:id="btninscr" layoutX="97.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#onConnextionButtonClicked" text="Inscription" visible="false" />
+            <TextField fx:id="tfmdp" layoutX="38.0" layoutY="196.0" prefHeight="30.0" prefWidth="190.0" visible="false" />
+            <TextField fx:id="tflog" layoutX="38.0" layoutY="141.0" prefHeight="30.0" prefWidth="190.0" visible="false" />
+         </children>
+      </Pane>
+   </children>
+</Pane>
