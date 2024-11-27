@@ -80,4 +80,17 @@ public class UserRepository implements RepositoryInterface<Users, String> {
         }
         return goodlog;
     }
+
+    public int getNumCompte(String login) throws SQLException {
+       int num = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT numCompte from compte where login = ?");
+        preparedStatement.setString(1,login);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            num = (resultSet.getInt("numCompte"));
+        }
+        return num;
+    }
 }

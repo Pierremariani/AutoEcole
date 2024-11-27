@@ -19,8 +19,8 @@ public class EleveController {
         return eleveService.GenerateCodeEleve();
     }
 
-    public void createEleve(int CodeEleve,String Nom, String Prenom,int Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone) throws SQLException {
-        eleveService.createEleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone);
+    public void createEleve(int CodeEleve,String Nom, String Prenom,int Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,String mail,int numCompte) throws SQLException {
+        eleveService.createEleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
     }
 
 }

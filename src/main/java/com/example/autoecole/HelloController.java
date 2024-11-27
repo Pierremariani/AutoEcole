@@ -2,6 +2,7 @@ package com.example.autoecole;
 
 import com.example.autoecole.controllers.EleveController;
 import com.example.autoecole.controllers.UserController;
+import com.example.autoecole.models.Users;
 import com.example.autoecole.repositories.UserRepository;
 import com.example.autoecole.services.UserService;
 import com.example.autoecole.tools.DataSourceProvider;
@@ -9,12 +10,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -48,7 +51,11 @@ public class HelloController implements Initializable {
     @FXML
     private TextField tfadresse;
     @FXML
-    private TextField tfdate;
+    private TextField tfmail;
+    @FXML
+    private TextField tfmdpinscription;
+    @FXML
+    private DatePicker datepicker;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,16 +77,20 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onInscriptionButtonClicked() throws SQLException {
-        //userController.create("teub","paul",0);
-       // System.out.println(userController.getAll());
-        //System.out.println(userController.getLogin());
-        //System.out.println(userController.verifyLoginMdp("zebi","paul"));
-       // userController.create(tflog.getText(),tfmdp.getText(),0);
-        //System.out.println(eleveController.GenerateCodeEleve());
-        eleveController.createEleve(eleveController.GenerateCodeEleve(), tfnom.getText(),tfprenom.getText(),Integer.parseInt(tfsexe.getText()),tfdate.getText(),tfadresse.getText(),Integer.parseInt(tfpostal.getText()),tfville.getText(),Integer.parseInt(tftel.getText()));
+        if (verifInscription()) {
+            userController.create(tfmail.getText(),tfmdpinscription.getText(),0);
+            eleveController.createEleve(eleveController.GenerateCodeEleve(), tfnom.getText(), tfprenom.getText(), Integer.parseInt(tfsexe.getText()), String.valueOf(datepicker.getValue()), tfadresse.getText(), Integer.parseInt(tfpostal.getText()), tfville.getText(), Integer.parseInt(tftel.getText()), tfmail.getText(), userController.getNumCompte(tfmail.getText()));
+        }
     }
 
     @FXML
     public void onConnextionButtonClicked(Event event) {
+    }
+
+    public boolean verifInscription() {
+        if (!Objects.equals(tfnom.getText(), "") && !Objects.equals(tfprenom.getText(), "") && !Objects.equals(tfsexe.getText(), "") && !Objects.equals( String.valueOf(datepicker.getValue()), "") && !Objects.equals(tfadresse.getText(), "") && !Objects.equals(tfpostal.getText(), "") && !Objects.equals(tfville.getText(), "") && !Objects.equals(tftel.getText(), "") && !Objects.equals(tfmail.getText(), "") && !Objects.equals(tfmdpinscription.getText(), "")) {
+            return true;
+        }
+        return false;
     }
 }

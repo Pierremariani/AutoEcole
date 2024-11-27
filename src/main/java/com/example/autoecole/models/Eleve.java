@@ -2,10 +2,10 @@ package com.example.autoecole.models;
 
 public class Eleve {
 
-    private int code,sexe,postal,tel;
-    private String nom,prenom,ville,adresse,datenaissance;
+    private int code,sexe,postal,tel,numCompte;
+    private String nom,prenom,ville,adresse,datenaissance,mail;
 
-    public Eleve(int code, int sexe, int postal, int tel, String nom, String prenom, String ville, String adresse, String datenaissance) {
+    public Eleve(int code, int sexe, int postal, int tel, String nom, String prenom, String ville, String adresse, String datenaissance,String mail,int numCompte) {
         this.code = code;
         this.sexe = sexe;
         this.postal = postal;
@@ -15,6 +15,24 @@ public class Eleve {
         this.ville = ville;
         this.adresse = adresse;
         this.datenaissance = datenaissance;
+        this.mail = mail;
+        this.numCompte = numCompte;
+    }
+
+    public int getNumCompte() {
+        return numCompte;
+    }
+
+    public void setNumCompte(int numCompte) {
+        this.numCompte = numCompte;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public int getCode() {

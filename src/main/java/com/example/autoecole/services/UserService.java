@@ -29,4 +29,8 @@ public class UserService {
     public boolean verifyLoginMdp(String login, String mdp) throws SQLException {
         return userRepository.verifyLoginMdp(login,mdp);
     }
+
+    public int getNumCompte(String login) throws SQLException {
+        return userRepository.getNumCompte(login);
+    }
 }

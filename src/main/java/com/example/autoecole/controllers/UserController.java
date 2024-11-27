@@ -27,4 +27,8 @@ public class UserController {
     public boolean verifyLoginMdp(String login, String mdp) throws SQLException {
         return userService.verifyLoginMdp(login,mdp);
     }
+
+    public int getNumCompte(String login) throws SQLException {
+        return userService.getNumCompte(login);
+    }
 }

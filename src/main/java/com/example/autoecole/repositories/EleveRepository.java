@@ -19,7 +19,7 @@ public class EleveRepository {
     }
 
     public void createEleve(Eleve eleve) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO eleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone) values(?,?,?,?,?,?,?,?,?)" );
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO eleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte) values(?,?,?,?,?,?,?,?,?,?,?)" );
         preparedStatement.setInt(1,eleve.getCode());
         preparedStatement.setString(2,eleve.getNom());
         preparedStatement.setString(3,eleve.getPrenom());
@@ -29,6 +29,8 @@ public class EleveRepository {
         preparedStatement.setInt(7,eleve.getPostal());
         preparedStatement.setString(8,eleve.getVille());
         preparedStatement.setInt(9,eleve.getTel());
+        preparedStatement.setString(10, eleve.getMail());
+        preparedStatement.setInt(11, eleve.getNumCompte());
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
