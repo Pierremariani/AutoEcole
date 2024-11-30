@@ -2,10 +2,10 @@ package com.example.autoecole.models;
 
 public class Eleve {
 
-    private int code,sexe,postal,tel,numCompte;
-    private String nom,prenom,ville,adresse,datenaissance,mail;
+    private int code,postal,tel,numCompte;
+    private String nom,prenom,ville,adresse,datenaissance,mail,sexe;
 
-    public Eleve(int code, int sexe, int postal, int tel, String nom, String prenom, String ville, String adresse, String datenaissance,String mail,int numCompte) {
+    public Eleve(int code, String sexe, int postal, int tel, String nom, String prenom, String ville, String adresse, String datenaissance,String mail,int numCompte) {
         this.code = code;
         this.sexe = sexe;
         this.postal = postal;
@@ -15,6 +15,25 @@ public class Eleve {
         this.ville = ville;
         this.adresse = adresse;
         this.datenaissance = datenaissance;
+        this.mail = mail;
+        this.numCompte = numCompte;
+    }
+
+
+    public Eleve() {
+
+    }
+
+    public Eleve(int CodeEleve, String Nom,String Prenom, String Sexe,String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone, String mail,int numCompte) {
+        this.code = CodeEleve;
+        this.nom = Nom;
+        this.prenom = Prenom;
+        this.sexe = Sexe;
+        this.datenaissance = DateDeNaissance;
+        this.adresse = Adresse1;
+        this.postal = CodePostal;
+        this.ville = Ville;
+        this.tel = Telephone;
         this.mail = mail;
         this.numCompte = numCompte;
     }
@@ -43,11 +62,11 @@ public class Eleve {
         this.code = code;
     }
 
-    public int getSexe() {
+    public String getSexe() {
         return sexe;
     }
 
-    public void setSexe(int sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 

@@ -23,7 +23,7 @@ public class EleveRepository {
         preparedStatement.setInt(1,eleve.getCode());
         preparedStatement.setString(2,eleve.getNom());
         preparedStatement.setString(3,eleve.getPrenom());
-        preparedStatement.setInt(4,eleve.getSexe());
+        preparedStatement.setString(4,eleve.getSexe());
         preparedStatement.setString(5,eleve.getDatenaissance());
         preparedStatement.setString(6,eleve.getAdresse());
         preparedStatement.setInt(7,eleve.getPostal());
@@ -45,5 +45,18 @@ public class EleveRepository {
             code = (resultSet.getInt("max(CodeEleve)"));
         }
         return code+1;
+    }
+
+    public Eleve setCurrentEleve(int numCompte) throws SQLException {
+        Eleve e = new Eleve();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail from eleve where numCompte = ?");
+        preparedStatement.setInt(1,numCompte);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            e = new Eleve(resultSet.getInt("CodeEleve"),resultSet.getString("Nom"),resultSet.getString("Prenom"),resultSet.getString("Sexe"),resultSet.getString("DateDeNaissance"),resultSet.getString("Adresse1"),resultSet.getInt("CodePostal"),resultSet.getString("Ville"),resultSet.getInt("Telephone"),resultSet.getString("mail"),numCompte);
+        }
+        return e;
     }
 }
