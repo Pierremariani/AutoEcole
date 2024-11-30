@@ -35,7 +35,6 @@ public class HelloController implements Initializable {
 
     Alert a;
 
-    public int numCompteUser;
     @FXML
     private TextField txtField_login_mdp;
     @FXML
@@ -92,11 +91,18 @@ public class HelloController implements Initializable {
 
 
     @FXML
-    public void onInscriptionSubmitButtonClicked() throws SQLException {
+    public void onInscriptionSubmitButtonClicked(Event event) throws SQLException, IOException {
         if (verifInscription()) {
             userController.create(tfmail.getText(),tfmdpinscription.getText(),0);
             eleveController.createEleve(eleveController.GenerateCodeEleve(), txtField_inscrNom.getText(), txtField_inscrPrenom.getText(), cbo_sexe.getSelectionModel().getSelectedItem().toString(), String.valueOf(datePicker_naissance.getValue()), txtField_inscrAdresse.getText(), Integer.parseInt(txtField_inscrCP.getText()), txtField_inscrVille.getText(), Integer.parseInt(txtField_inscrTel.getText()), tfmail.getText(), userController.getNumCompte(tfmail.getText()));
-            numCompteUser = userController.getNumCompte(tfmail.getText());
+            Global.idUser = userController.getNumCompte(tfmail.getText());
+            Global.currentEleve = eleveController.setCurrentEleve(Global.idUser);
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard_etudiant.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Auto-école/Dashboard étudiant");
+            stage.setScene(scene);
+            stage.show();
         }
         else {
             a.setTitle("Erreur de saisie");

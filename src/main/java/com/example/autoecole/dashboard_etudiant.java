@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class dashboard_etudiant
 {
@@ -61,9 +62,15 @@ public class dashboard_etudiant
             eleveController = new EleveController();
             leconController = new LeconController();
             a = new Alert(Alert.AlertType.ERROR);
+            // Afficher le prenom de l'eleve
             LabNomEtu.setText(Global.currentEleve.getPrenom());
-            if (!leconController.getAllLeconByEleve(Global.currentEleve.getCode()).isEmpty()) {
+            // On affiche la Date de la prochaine leçon si elle existe
+            if (leconController.nextLeconEleve(Global.currentEleve.getCode()) != null) {
                 labnextdate.setText(leconController.nextLeconEleve(Global.currentEleve.getCode()));
+            }
+            // Sinon on affiche un message d'erreur
+            else  {
+                labnextdate.setText("Aucune leçon prévue");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

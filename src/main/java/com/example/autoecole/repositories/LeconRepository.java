@@ -27,7 +27,7 @@ public class LeconRepository {
 
         while (resultSet.next())
         {
-            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getInt("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"));
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"));
             lecons.add(lec);
         }
         return lecons;
@@ -35,7 +35,7 @@ public class LeconRepository {
 
     public String nextLeconEleve (int codeEleve) throws SQLException {
         String date="";
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT MIN(Date) from lecon where CodeEleve = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT MIN(Date) FROM lecon WHERE Date > CURRENT_DATE AND CodeEleve = ?");
         preparedStatement.setInt(1,codeEleve);
         ResultSet resultSet = preparedStatement.executeQuery();
 

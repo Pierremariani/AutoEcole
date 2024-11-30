@@ -2,13 +2,13 @@ package com.example.autoecole.models;
 
 public class Lecon {
 
-    private int codeLecon,heure,codeMoniteur,codeEleve;
+    private int codeLecon,codeMoniteur,codeEleve;
 
     private boolean reglee;
 
-    private String date,immatriculation;
+    private String date,immatriculation,heure;
 
-    public Lecon(int codeLecon, int heure, int codeMoniteur, int codeEleve, boolean reglee, String date, String immatriculation) {
+    public Lecon(int codeLecon, String heure, int codeMoniteur, int codeEleve, boolean reglee, String date, String immatriculation) {
         this.codeLecon = codeLecon;
         this.heure = heure;
         this.codeMoniteur = codeMoniteur;
@@ -26,11 +26,11 @@ public class Lecon {
         this.codeLecon = codeLecon;
     }
 
-    public int getHeure() {
+    public String getHeure() {
         return heure;
     }
 
-    public void setHeure(int heure) {
+    public void setHeure(String heure) {
         this.heure = heure;
     }
 
