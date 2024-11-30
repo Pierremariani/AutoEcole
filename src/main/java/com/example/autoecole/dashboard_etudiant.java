@@ -1,6 +1,7 @@
 package com.example.autoecole;
 
 import com.example.autoecole.controllers.EleveController;
+import com.example.autoecole.controllers.LeconController;
 import com.example.autoecole.controllers.UserController;
 import com.example.autoecole.models.Global;
 import com.example.autoecole.repositories.UserRepository;
@@ -24,6 +25,8 @@ public class dashboard_etudiant
 
     EleveController eleveController;
 
+    LeconController leconController;
+
     DataSourceProvider connexionBDD;
 
     private int idEtudiant;
@@ -45,6 +48,8 @@ public class dashboard_etudiant
     private AnchorPane ap_dashboard_eleve2;
     @javafx.fxml.FXML
     private Label LabNomEtu;
+    @javafx.fxml.FXML
+    private Label labnextdate;
 
     @javafx.fxml.FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -54,8 +59,12 @@ public class dashboard_etudiant
             userRepository = new UserRepository();
             userService = new UserService();
             eleveController = new EleveController();
+            leconController = new LeconController();
             a = new Alert(Alert.AlertType.ERROR);
             LabNomEtu.setText(Global.currentEleve.getPrenom());
+            if (!leconController.getAllLeconByEleve(Global.currentEleve.getCode()).isEmpty()) {
+                labnextdate.setText(leconController.nextLeconEleve(Global.currentEleve.getCode()));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
