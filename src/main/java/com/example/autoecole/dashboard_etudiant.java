@@ -51,6 +51,10 @@ public class dashboard_etudiant
     private Label LabNomEtu;
     @javafx.fxml.FXML
     private Label labnextdate;
+    @javafx.fxml.FXML
+    private Label labtotallecon;
+    @javafx.fxml.FXML
+    private Label labresteapayer;
 
     @javafx.fxml.FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -72,12 +76,35 @@ public class dashboard_etudiant
             else  {
                 labnextdate.setText("Aucune leçon prévue");
             }
+            // On affiche le prix total de toutes les leçons
+            labtotallecon.setText(getTotalLeconPrice(Global.currentEleve.getCode()));
+            //On affiche le prix total qu'il reste à payer
+            labresteapayer.setText(getNonPayer(Global.currentEleve.getCode()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public String getTotalLeconPrice(int CodeEleve) throws SQLException {
+        int total = 0;
+        for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
+            total+= 55;
+        }
+        return String.valueOf(total)+ "€";
+    }
+
+    public String getNonPayer(int CodeEleve) throws SQLException {
+        int total = 0;
+        for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
+            if (!leconController.getAllLeconByEleve(CodeEleve).get(i).isReglee()) {
+                total += 55;
+            }
+        }
+        return String.valueOf(total)+ "€";
+    }
+
 
 
     @Deprecated
