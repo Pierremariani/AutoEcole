@@ -1,9 +1,11 @@
 package com.example.autoecole.services;
 
 import com.example.autoecole.models.Eleve;
+import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.repositories.EleveRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EleveService {
 
@@ -18,6 +20,10 @@ public class EleveService {
 
     public Eleve setCurrentEleve(int numCompte) throws SQLException {
         return eleveRepository.setCurrentEleve(numCompte);
+    }
+
+    public ArrayList<Moniteur> getAllMoniteurByEleve(int CodeEleve) throws SQLException {
+        return eleveRepository.getAllMoniteurByEleve(CodeEleve);
     }
 
     public void createEleve(int CodeEleve, String Nom, String Prenom, String Sexe, String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone, String mail, int numCompte) throws SQLException {

@@ -1,6 +1,7 @@
 package com.example.autoecole.repositories;
 
 import com.example.autoecole.models.Eleve;
+import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.models.Users;
 import com.example.autoecole.tools.DataSourceProvider;
 
@@ -58,5 +59,23 @@ public class EleveRepository {
             e = new Eleve(resultSet.getInt("CodeEleve"),resultSet.getString("Nom"),resultSet.getString("Prenom"),resultSet.getString("Sexe"),resultSet.getString("DateDeNaissance"),resultSet.getString("Adresse1"),resultSet.getInt("CodePostal"),resultSet.getString("Ville"),resultSet.getInt("Telephone"),resultSet.getString("mail"),numCompte);
         }
         return e;
+    }
+
+    public ArrayList<Moniteur> getAllMoniteurByEleve(int CodeEleve) throws SQLException {
+        ArrayList<Moniteur> moniteurs = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeMoniteur,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,numCompte from moniteur where CodeMoniteur IN (SELECT DISTINCT(CodeMoniteur) from lecon where CodeEleve = ?)");
+        preparedStatement.setInt(1,CodeEleve);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            try {
+                Moniteur moni = new Moniteur(resultSet.getInt("CodeMoniteur"), resultSet.getInt("CodePostal"), resultSet.getInt("Telephone"), resultSet.getInt("numCompte"), resultSet.getString("Nom"), resultSet.getString("Prenom"), resultSet.getString("Sexe"), resultSet.getString("DateDeNaissance"), resultSet.getString("Adresse1"), resultSet.getString("Ville"));
+                moniteurs.add(moni);
+            } catch (NumberFormatException | SQLException e) {
+                System.err.println("Erreur lors du traitement d'un moniteur : " + e.getMessage());
+                System.err.println("Cette erreur est surement lié au fait qu'une leçon de cet élève ait été mal insérée dans la bdd");
+            }
+        }
+        return moniteurs;
     }
 }

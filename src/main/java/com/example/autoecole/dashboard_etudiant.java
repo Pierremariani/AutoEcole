@@ -4,13 +4,15 @@ import com.example.autoecole.controllers.EleveController;
 import com.example.autoecole.controllers.LeconController;
 import com.example.autoecole.controllers.UserController;
 import com.example.autoecole.models.Global;
+import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.repositories.UserRepository;
 import com.example.autoecole.services.UserService;
 import com.example.autoecole.tools.DataSourceProvider;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.w3c.dom.Text;
@@ -55,6 +57,12 @@ public class dashboard_etudiant
     private Label labtotallecon;
     @javafx.fxml.FXML
     private Label labresteapayer;
+    @javafx.fxml.FXML
+    private TableView<Moniteur> tvMoniteurs;
+    @javafx.fxml.FXML
+    private TableColumn<Moniteur, String> prenomColumn;
+    @javafx.fxml.FXML
+    private TableColumn<Moniteur, String> nomColumn;
 
     @javafx.fxml.FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -80,6 +88,10 @@ public class dashboard_etudiant
             labtotallecon.setText(getTotalLeconPrice(Global.currentEleve.getCode()));
             //On affiche le prix total qu'il reste à payer
             labresteapayer.setText(getNonPayer(Global.currentEleve.getCode()));
+            nomColumn.setCellValueFactory(new PropertyValueFactory<>("Nom"));
+            prenomColumn.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
+            ObservableList<Moniteur> moniteurs = FXCollections.observableArrayList(eleveController.getAllMoniteurByEleve(Global.currentEleve.getCode()));
+            tvMoniteurs.setItems(moniteurs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

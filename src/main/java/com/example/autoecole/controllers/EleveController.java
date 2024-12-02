@@ -2,6 +2,7 @@ package com.example.autoecole.controllers;
 
 
 import com.example.autoecole.models.Eleve;
+import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.models.Users;
 import com.example.autoecole.services.EleveService;
 import com.example.autoecole.services.UserService;
@@ -22,6 +23,9 @@ public class EleveController {
 
     public void createEleve(int CodeEleve,String Nom, String Prenom,String Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,String mail,int numCompte) throws SQLException {
         eleveService.createEleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
+    }
+    public ArrayList<Moniteur> getAllMoniteurByEleve(int CodeEleve) throws SQLException {
+        return eleveService.getAllMoniteurByEleve(CodeEleve);
     }
 
     public Eleve setCurrentEleve(int numCompte) throws SQLException {
