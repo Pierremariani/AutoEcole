@@ -1,8 +1,10 @@
 package com.example.autoecole;
 
+import com.example.autoecole.controllers.CategorieController;
 import com.example.autoecole.controllers.EleveController;
 import com.example.autoecole.controllers.LeconController;
 import com.example.autoecole.controllers.UserController;
+import com.example.autoecole.models.Eleve;
 import com.example.autoecole.models.Global;
 import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.repositories.UserRepository;
@@ -11,12 +13,16 @@ import com.example.autoecole.tools.DataSourceProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -27,6 +33,8 @@ public class dashboard_etudiant
     UserService userService;
 
     EleveController eleveController;
+
+    CategorieController categorieController;
 
     LeconController leconController;
 
@@ -63,6 +71,10 @@ public class dashboard_etudiant
     private TableColumn<Moniteur, String> prenomColumn;
     @javafx.fxml.FXML
     private TableColumn<Moniteur, String> nomColumn;
+    @javafx.fxml.FXML
+    private Label labtotalheures;
+    @javafx.fxml.FXML
+    private Label labheuresrestantes;
 
     @javafx.fxml.FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -73,6 +85,7 @@ public class dashboard_etudiant
             userService = new UserService();
             eleveController = new EleveController();
             leconController = new LeconController();
+            categorieController = new CategorieController();
             a = new Alert(Alert.AlertType.ERROR);
             // Afficher le prenom de l'eleve
             LabNomEtu.setText(Global.currentEleve.getPrenom());
@@ -88,10 +101,16 @@ public class dashboard_etudiant
             labtotallecon.setText(getTotalLeconPrice(Global.currentEleve.getCode()));
             //On affiche le prix total qu'il reste à payer
             labresteapayer.setText(getNonPayer(Global.currentEleve.getCode()));
+            // Création TableView Moniteur
             nomColumn.setCellValueFactory(new PropertyValueFactory<>("Nom"));
             prenomColumn.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
             ObservableList<Moniteur> moniteurs = FXCollections.observableArrayList(eleveController.getAllMoniteurByEleve(Global.currentEleve.getCode()));
             tvMoniteurs.setItems(moniteurs);
+            labtotalheures.setText(eleveController.getAllHeures(Global.currentEleve.getCode())+" heures ");
+            labheuresrestantes.setText(leconController.getAllHoursToDo(Global.currentEleve.getCode())+" heures ");
+            for (int i = 0; i < categorieController.getAllCategorieEleve(Global.currentEleve.getCode()).size();i++){
+                System.out.println(categorieController.getCategorie(categorieController.getAllCategorieEleve(Global.currentEleve.getCode()).get(i)));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -102,7 +121,7 @@ public class dashboard_etudiant
     public String getTotalLeconPrice(int CodeEleve) throws SQLException {
         int total = 0;
         for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
-            total+= 55;
+            total+= 55*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
         }
         return String.valueOf(total)+ "€";
     }
@@ -111,7 +130,7 @@ public class dashboard_etudiant
         int total = 0;
         for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
             if (!leconController.getAllLeconByEleve(CodeEleve).get(i).isReglee()) {
-                total += 55;
+                total += 55*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
             }
         }
         return String.valueOf(total)+ "€";
@@ -119,8 +138,16 @@ public class dashboard_etudiant
 
 
 
-    @Deprecated
-    public void OnClicked_deconnexion_eleve(Event event) {
+    @javafx.fxml.FXML
+    public void OnClicked_deconnexion_eleve(Event event) throws IOException {
+        Global.currentEleve = new Eleve();
+        Global.idUser = 9999;
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Start & go Connexion / Inscription");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @javafx.fxml.FXML

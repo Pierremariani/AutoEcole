@@ -11,29 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class EleveRepository {
+public class EleveRepository implements RepositoryInterface<Eleve,String>{
     private Connection connection;
 
     public EleveRepository()
     {
         connection = DataSourceProvider.getCnx();
-    }
-
-    public void createEleve(Eleve eleve) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO eleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte) values(?,?,?,?,?,?,?,?,?,?,?)" );
-        preparedStatement.setInt(1,eleve.getCode());
-        preparedStatement.setString(2,eleve.getNom());
-        preparedStatement.setString(3,eleve.getPrenom());
-        preparedStatement.setString(4,eleve.getSexe());
-        preparedStatement.setString(5,eleve.getDatenaissance());
-        preparedStatement.setString(6,eleve.getAdresse());
-        preparedStatement.setInt(7,eleve.getPostal());
-        preparedStatement.setString(8,eleve.getVille());
-        preparedStatement.setInt(9,eleve.getTel());
-        preparedStatement.setString(10, eleve.getMail());
-        preparedStatement.setInt(11, eleve.getNumCompte());
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     public int GenerateCodeEleve() throws SQLException {
@@ -77,5 +60,40 @@ public class EleveRepository {
             }
         }
         return moniteurs;
+    }
+
+    public int getAllHeures(int CodeEleve) throws SQLException {
+        int heure = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("select sum(duree) from lecon where CodeEleve = ?");
+        preparedStatement.setInt(1, CodeEleve);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            heure = resultSet.getInt("sum(duree)");
+        }
+        return heure;
+    }
+
+    @Override
+    public ArrayList<Eleve> getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void create(Eleve eleve) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO eleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte) values(?,?,?,?,?,?,?,?,?,?,?)" );
+        preparedStatement.setInt(1,eleve.getCode());
+        preparedStatement.setString(2,eleve.getNom());
+        preparedStatement.setString(3,eleve.getPrenom());
+        preparedStatement.setString(4,eleve.getSexe());
+        preparedStatement.setString(5,eleve.getDatenaissance());
+        preparedStatement.setString(6,eleve.getAdresse());
+        preparedStatement.setInt(7,eleve.getPostal());
+        preparedStatement.setString(8,eleve.getVille());
+        preparedStatement.setInt(9,eleve.getTel());
+        preparedStatement.setString(10, eleve.getMail());
+        preparedStatement.setInt(11, eleve.getNumCompte());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 }

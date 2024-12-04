@@ -26,8 +26,12 @@ public class EleveService {
         return eleveRepository.getAllMoniteurByEleve(CodeEleve);
     }
 
-    public void createEleve(int CodeEleve, String Nom, String Prenom, String Sexe, String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone, String mail, int numCompte) throws SQLException {
+    public int getAllHeures(int CodeEleve) throws SQLException {
+        return eleveRepository.getAllHeures(CodeEleve);
+    }
+
+    public void create(int CodeEleve, String Nom, String Prenom, String Sexe, String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone, String mail, int numCompte) throws SQLException {
         Eleve eleve = new Eleve(CodeEleve,Sexe,CodePostal,Telephone,Nom,Prenom,Ville,Adresse1, DateDeNaissance,mail,numCompte);
-        eleveRepository.createEleve(eleve);
+        eleveRepository.create(eleve);
     }
 }

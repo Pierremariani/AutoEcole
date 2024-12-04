@@ -90,14 +90,23 @@
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
-                                <AnchorPane layoutX="381.0" layoutY="226.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;" />
-                                <AnchorPane layoutX="382.0" layoutY="301.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;" />
+                                <AnchorPane layoutX="381.0" layoutY="226.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                           <children>
+                              <Label fx:id="labtotalheures" layoutX="13.0" layoutY="20.0" prefHeight="18.0" prefWidth="129.0" text="Label" textFill="#faf2f2" />
+                              <Label layoutY="-8.0" text="Nombre total d'heures" textFill="#fcfafa" />
+                           </children></AnchorPane>
+                                <AnchorPane layoutX="382.0" layoutY="301.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                           <children>
+                              <Label fx:id="labheuresrestantes" layoutX="7.0" layoutY="19.0" prefHeight="18.0" prefWidth="145.0" text="Label" textFill="#f4f2f2" />
+                              <Label layoutX="14.0" layoutY="-8.0" text="Il vous reste :" textFill="#f7f3f3" />
+                           </children></AnchorPane>
                                 <Label fx:id="LabNomEtu" layoutX="104.0" layoutY="57.0" text="nom étudiant" textFill="#FFFFFF" />
                                 <Label layoutX="18.0" layoutY="52.0" prefHeight="29.0" prefWidth="71.0" text="Bonjour" textFill="#f7f5f5">
                                     <font>
                                         <Font size="19.0" />
                                     </font>
                                 </Label>
+                        <Button layoutX="456.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#OnClicked_deconnexion_eleve" text="Déconnexion" />
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="ap_planning_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0" visible="false" />

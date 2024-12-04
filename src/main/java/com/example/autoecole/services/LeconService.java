@@ -21,4 +21,13 @@ public class LeconService {
     public String nextLeconEleve (int codeEleve) throws SQLException {
         return leconRepository.nextLeconEleve(codeEleve);
     }
+
+    public void create(int CodeLecon,String Date,String Heure,int CodeMoniteur,int CodeEleve, String Immatriculation,boolean Reglee,int duree) throws SQLException {
+        Lecon lecon = new Lecon(CodeLecon,Heure,CodeMoniteur,CodeEleve,Reglee,Date,Immatriculation,duree);
+        leconRepository.create(lecon);
+    }
+
+    public int getAllHoursToDo(int CodeEleve) throws SQLException {
+        return leconRepository.getAllHoursToDo(CodeEleve);
+    }
 }
