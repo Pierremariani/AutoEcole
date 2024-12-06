@@ -59,6 +59,22 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
         return duree;
     }
 
+    public boolean isDateAvailable(String Date , String horaires) throws SQLException {
+        boolean available = true;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Date FROM lecon WHERE Date = ? AND Heure = ?");
+        preparedStatement.setString(1,Date);
+        preparedStatement.setString(2,horaires);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            available = false;
+        }
+        return available;
+    }
+
+
     @Override
     public ArrayList<Lecon> getAll() throws SQLException {
         return null;
@@ -66,7 +82,7 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
 
     @Override
     public void create(Lecon lecon) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO lecon(CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree values(?,?,?,?,?,?,?,?)" );
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO lecon(CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree) values(?,?,?,?,?,?,?,?)" );
         preparedStatement.setInt(1,lecon.getCodeLecon());
         preparedStatement.setString(2,lecon.getDate());
         preparedStatement.setString(3,lecon.getHeure());
@@ -77,5 +93,17 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
         preparedStatement.setInt(8,lecon.getDuree());
         preparedStatement.executeUpdate();
         preparedStatement.close();
+    }
+
+    public int GenerateCodeLecon() throws SQLException {
+        int code = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT max(CodeLecon) from lecon");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            code = (resultSet.getInt("max(CodeLecon)"));
+        }
+        return code+1;
     }
 }

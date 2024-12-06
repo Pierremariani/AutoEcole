@@ -16,11 +16,7 @@ public class Categorie {
 
     @Override
     public String toString() {
-        return "Categorie{" +
-                "code=" + code +
-                ", libelle='" + libelle + '\'' +
-                ", prix=" + prix +
-                '}';
+        return libelle;
     }
 
     public Categorie() {
@@ -50,4 +46,6 @@ public class Categorie {
     public void setPrix(Double prix) {
         this.prix = prix;
     }
+
+
 }

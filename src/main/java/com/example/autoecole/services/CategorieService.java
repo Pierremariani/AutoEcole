@@ -22,4 +22,8 @@ public class CategorieService {
         return categorieRepository.getAllCategorieEleve(CodeEleve);
     }
 
+    public ArrayList<Categorie> getAll() throws SQLException {
+        return categorieRepository.getAll();
+    }
+
 }

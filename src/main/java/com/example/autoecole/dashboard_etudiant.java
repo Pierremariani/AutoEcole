@@ -155,7 +155,13 @@ public class dashboard_etudiant
     }
 
     @javafx.fxml.FXML
-    public void Onclicked_cours_eleve(Event event) {
+    public void Onclicked_cours_eleve(Event event) throws IOException {
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("cours_etudiant.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Start & go Prise de leçon");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @javafx.fxml.FXML

@@ -49,7 +49,16 @@ public class CategorieRepository implements RepositoryInterface<Categorie,String
 
     @Override
     public ArrayList<Categorie> getAll() throws SQLException {
-        return null;
+        ArrayList<Categorie> categories = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeCategorie,Libelle,Prix from categorie");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Categorie categorie = new Categorie(resultSet.getInt("CodeCategorie"),resultSet.getString("Libelle"),resultSet.getDouble("Prix"));
+            categories.add(categorie);
+        }
+        return categories;
     }
 
     @Override

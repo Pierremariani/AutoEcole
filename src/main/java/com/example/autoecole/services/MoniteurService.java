@@ -17,4 +17,8 @@ public class MoniteurService {
     public ArrayList<Moniteur> getAll() throws SQLException {
         return moniteurRepository.getAll();
     }
+
+    public ArrayList<Moniteur> getMoniteur(int codecategorie) throws SQLException {
+        return moniteurRepository.getMoniteur(codecategorie);
+    }
 }

@@ -61,10 +61,7 @@ public class Moniteur {
 
     @Override
     public String toString() {
-        return "Moniteur{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                '}';
+        return nom+" "+prenom;
     }
 
     public String getPrenom() {

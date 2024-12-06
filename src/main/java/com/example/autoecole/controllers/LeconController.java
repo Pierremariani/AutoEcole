@@ -15,19 +15,27 @@ public class LeconController {
         leconService = new LeconService();
     }
 
-    public ArrayList<Lecon> getAllLeconByEleve(int codeEleve)throws SQLException {
+    public ArrayList<Lecon> getAllLeconByEleve(int codeEleve) throws SQLException {
         return leconService.getAllLeconByEleve(codeEleve);
     }
 
-    public String nextLeconEleve (int codeEleve) throws SQLException {
+    public String nextLeconEleve(int codeEleve) throws SQLException {
         return leconService.nextLeconEleve(codeEleve);
     }
 
-    public void create(int CodeLecon,String Date,String Heure,int CodeMoniteur,int CodeEleve, String Immatriculation,boolean Reglee,int duree) throws SQLException {
-        leconService.create(CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree);
+    public void create(int CodeLecon, String Date, String Heure, int CodeMoniteur, int CodeEleve, String Immatriculation, boolean Reglee, int duree) throws SQLException {
+        leconService.create(CodeLecon, Date, Heure, CodeMoniteur, CodeEleve, Immatriculation, Reglee, duree);
     }
 
     public int getAllHoursToDo(int CodeEleve) throws SQLException {
         return leconService.getAllHoursToDo(CodeEleve);
+    }
+
+    public boolean isDateAvailable(String Date, String horaires) throws SQLException {
+        return leconService.isDateAvailable(Date,horaires);
+    }
+
+    public int GenerateCodeLecon() throws SQLException {
+        return leconService.GenerateCodeLecon();
     }
 }
