@@ -26,6 +26,11 @@ public class Vehicule {
         return Marque;
     }
 
+    @Override
+    public String toString() {
+        return  Marque+" "+  Modele;
+    }
+
     public void setMarque(String marque) {
         Marque = marque;
     }

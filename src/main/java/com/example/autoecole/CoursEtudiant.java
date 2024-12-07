@@ -9,13 +9,12 @@ import com.example.autoecole.services.UserService;
 import com.example.autoecole.tools.DataSourceProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,6 +41,8 @@ public class CoursEtudiant implements Initializable {
 
     MoniteurController moniteurController;
 
+    VehiculeController vehiculeController;
+
     DataSourceProvider connexionBDD;
     @javafx.fxml.FXML
     private ComboBox cboforfait;
@@ -55,6 +56,12 @@ public class CoursEtudiant implements Initializable {
     private ComboBox cbovehicule;
     @javafx.fxml.FXML
     private ComboBox cbodureetakelecon;
+    @javafx.fxml.FXML
+    private Label labenseignant;
+    @javafx.fxml.FXML
+    private Button btnreserve;
+    @javafx.fxml.FXML
+    private Label labvehicule;
 
 
     @Override
@@ -68,6 +75,7 @@ public class CoursEtudiant implements Initializable {
             leconController = new LeconController();
             categorieController = new CategorieController();
             moniteurController = new MoniteurController();
+            vehiculeController = new VehiculeController();
             a = new Alert(Alert.AlertType.ERROR);
             int h = 8;
             int i = 0;
@@ -96,12 +104,6 @@ public class CoursEtudiant implements Initializable {
 
             cboforfait.setItems(FXCollections.observableArrayList(categorieController.getAll()));
             cboforfait.getSelectionModel().selectFirst();
-            Categorie c = (Categorie) cboforfait.getSelectionModel().getSelectedItem();
-            int codeSelect = c.getCode();
-            updateMoniteur(codeSelect);
-
-            System.out.println(String.valueOf(cbohours.getSelectionModel().getSelectedItem()));
-
         }catch (
         SQLException e) {
             throw new RuntimeException(e);
@@ -111,15 +113,30 @@ public class CoursEtudiant implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void onModifierClicked(Event event) throws SQLException {
+    public void onRechercherClicked(Event event) throws SQLException {
         Categorie c = (Categorie) cboforfait.getSelectionModel().getSelectedItem();
         int codeSelect = c.getCode();
-        updateMoniteur(codeSelect);
+        if(datereserve.getValue() == null) {
+            a.setTitle("Erreur de saisie");
+            a.setHeaderText(null);
+            a.setContentText("Veuillez sélectionner une date");
+            a.showAndWait();
+        }
+        else {
+            labenseignant.setDisable(false);
+            labvehicule.setDisable(false);
+            cbovehicule.setDisable(false);
+            cboenseignant.setDisable(false);
+            btnreserve.setDisable(false);
+            updateMoniteur(codeSelect);
+        }
     }
 
     public void updateMoniteur(int codeSelect) throws SQLException {
         cboenseignant.setItems(FXCollections.observableArrayList(moniteurController.getMoniteur(codeSelect)));
         cboenseignant.getSelectionModel().selectFirst();
+        cbovehicule.setItems(FXCollections.observableArrayList(vehiculeController.getByCodeCategorie(codeSelect,String.valueOf(datereserve.getValue()),String.valueOf(cbohours.getSelectionModel().getSelectedItem()), Integer.parseInt(String.valueOf(cbodureetakelecon.getSelectionModel().getSelectedItem())))));
+        cbovehicule.getSelectionModel().selectFirst();
     }
 
     @javafx.fxml.FXML
@@ -158,5 +175,9 @@ public class CoursEtudiant implements Initializable {
         stage.setTitle("Start & go Dashboard Eleve");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @javafx.fxml.FXML
+    public void dateclicked(ActionEvent actionEvent) {
     }
 }
