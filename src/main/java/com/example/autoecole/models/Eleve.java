@@ -38,6 +38,19 @@ public class Eleve {
         this.numCompte = numCompte;
     }
 
+    public Eleve(String Nom,String Prenom, String Sexe,String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone, String mail,int numCompte) {
+        this.nom = Nom;
+        this.prenom = Prenom;
+        this.sexe = Sexe;
+        this.datenaissance = DateDeNaissance;
+        this.adresse = Adresse1;
+        this.postal = CodePostal;
+        this.ville = Ville;
+        this.tel = Telephone;
+        this.mail = mail;
+        this.numCompte = numCompte;
+    }
+
     public int getNumCompte() {
         return numCompte;
     }

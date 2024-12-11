@@ -31,4 +31,16 @@ public class UserController {
     public int getNumCompte(String login) throws SQLException {
         return userService.getNumCompte(login);
     }
+
+    public String getMdp(int numcompte) throws SQLException {
+        return userService.getMdp(numcompte);
+    }
+
+    public String getlogin(int numcompte) throws SQLException {
+        return userService.getlogin(numcompte);
+    }
+
+    public void update(int numCompte, String login,String mdp) throws SQLException {
+        userService.update(numCompte,login,mdp);
+    }
 }

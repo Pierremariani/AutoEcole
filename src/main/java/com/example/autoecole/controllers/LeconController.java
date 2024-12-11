@@ -38,4 +38,8 @@ public class LeconController {
     public int GenerateCodeLecon() throws SQLException {
         return leconService.GenerateCodeLecon();
     }
+
+    public ArrayList<Lecon> getAllLeconComingByEleve(int codeEleve) throws SQLException {
+        return  leconService.getAllLeconComingByEleve(codeEleve);
+    }
 }

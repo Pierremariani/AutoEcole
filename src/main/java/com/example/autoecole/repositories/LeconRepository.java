@@ -106,4 +106,18 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
         }
         return code+1;
     }
+
+    public ArrayList<Lecon> getAllLeconComingByEleve(int codeEleve) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeEleve = ? and Date > CURRENT_DATE");
+        preparedStatement.setInt(1,codeEleve);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
 }

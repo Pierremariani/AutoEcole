@@ -53,6 +53,23 @@ public class VehiculeRepository implements RepositoryInterface<Vehicule,String> 
 
     }
 
+    public Double getPrixbyImmatriculation(String Immatriculation) throws SQLException {
+        double prix = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT c.Prix " +
+                "FROM categorie c " +
+                        "JOIN vehicule v ON c.CodeCategorie = v.CodeCategorie " +
+                        "WHERE v.Immatriculation = ?;");
+        preparedStatement.setString(1,Immatriculation);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            prix = resultSet.getDouble("Prix");
+        }
+        return prix;
+
+    }
+
     @Override
     public void create(Vehicule vehicule) throws SQLException {
 

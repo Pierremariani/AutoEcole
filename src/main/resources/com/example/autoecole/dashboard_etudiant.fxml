@@ -27,16 +27,6 @@
                             <children>
                                 <VBox prefHeight="200.0" prefWidth="187.0">
                                     <children>
-                                        <Button fx:id="ap_dashboard_eleve" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onMouseClicked="#Onclicked_dashboard_eleve" prefHeight="41.0" prefWidth="161.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="#aeb9e1">
-                                            <font>
-                                                <Font name="Mona Sans Medium" size="12.0" />
-                                            </font>
-                                        </Button>
-                                        <Button fx:id="ap_planning_eleve" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onMouseClicked="#Onclicked_planning_eleve" prefHeight="41.0" prefWidth="161.0" style="-fx-background-color: transparent;" text="Planning" textFill="#aeb9e1">
-                                            <font>
-                                                <Font name="Mona Sans Medium" size="12.0" />
-                                            </font>
-                                        </Button>
                                         <Button fx:id="ap_cours_eleve" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onMouseClicked="#Onclicked_cours_eleve" prefHeight="41.0" prefWidth="161.0" style="-fx-background-color: transparent;" text="Cours" textFill="#aeb9e1">
                                             <font>
                                                 <Font name="Mona Sans Medium" size="12.0" />
@@ -85,8 +75,10 @@
                            <children>
                               <TableView fx:id="tvMoniteurs" layoutX="-3.0" layoutY="-9.0" prefHeight="123.0" prefWidth="160.0">
                                 <columns>
-                                  <TableColumn fx:id="nomColumn" prefWidth="75.0" text="Nom" />
-                                  <TableColumn fx:id="prenomColumn" prefWidth="75.0" text="Prénom" />
+                                  <TableColumn fx:id="nomColumn" prefWidth="75.0" text="Nom" maxWidth="750.0"
+                                               minWidth="30.0"/>
+                                  <TableColumn fx:id="prenomColumn" prefWidth="75.0" text="Prénom" maxWidth="750.0"
+                                               minWidth="30.0"/>
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
@@ -107,6 +99,20 @@
                                     </font>
                                 </Label>
                         <Button layoutX="456.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#OnClicked_deconnexion_eleve" text="Déconnexion" />
+                        <AnchorPane layoutX="118.0" layoutY="302.0" prefHeight="110.0" prefWidth="246.0">
+                           <children>
+                              <TableView fx:id="tvlecons" layoutX="-3.0" layoutY="14.0" prefHeight="137.0" prefWidth="251.0">
+                                <columns>
+                                  <TableColumn fx:id="datecolumn" prefWidth="75.0" text="Date" maxWidth="750.0"
+                                               minWidth="30.0"/>
+                                  <TableColumn fx:id="heurecolumn" prefWidth="75.0" text="Heure" maxWidth="750.0"
+                                               minWidth="30.0"/>
+                                    <TableColumn fx:id="dureecolumn" prefWidth="75.0" text="Duree" maxWidth="750.0"
+                                                 minWidth="30.0"/>
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="ap_planning_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0" visible="false" />

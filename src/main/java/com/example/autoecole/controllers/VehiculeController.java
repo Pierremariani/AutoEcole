@@ -18,4 +18,8 @@ public class VehiculeController {
     public ArrayList<Vehicule> getByCodeCategorie(int CodeCategorie ,String Date,String Heure,int duree) throws SQLException {
         return vehiculeService.getByCodeCategorie(CodeCategorie,Date,Heure,duree);
     }
+
+    public Double getPrixbyImmatriculation(String Immatriculation) throws SQLException {
+        return vehiculeService.getPrixbyImmatriculation(Immatriculation);
+    }
 }

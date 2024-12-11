@@ -1,11 +1,9 @@
 package com.example.autoecole;
 
-import com.example.autoecole.controllers.CategorieController;
-import com.example.autoecole.controllers.EleveController;
-import com.example.autoecole.controllers.LeconController;
-import com.example.autoecole.controllers.UserController;
+import com.example.autoecole.controllers.*;
 import com.example.autoecole.models.Eleve;
 import com.example.autoecole.models.Global;
+import com.example.autoecole.models.Lecon;
 import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.repositories.UserRepository;
 import com.example.autoecole.services.UserService;
@@ -38,6 +36,8 @@ public class dashboard_etudiant
 
     LeconController leconController;
 
+    VehiculeController vehiculeController;
+
     DataSourceProvider connexionBDD;
 
     private int idEtudiant;
@@ -46,15 +46,11 @@ public class dashboard_etudiant
     @javafx.fxml.FXML
     private Button ap_cours_eleve;
     @javafx.fxml.FXML
-    private Button ap_planning_eleve;
-    @javafx.fxml.FXML
     private AnchorPane ap_planning_eleve2;
     @javafx.fxml.FXML
     private AnchorPane ap_cours_eleve2;
     @javafx.fxml.FXML
     private Button btn_param_eleve;
-    @javafx.fxml.FXML
-    private Button ap_dashboard_eleve;
     @javafx.fxml.FXML
     private AnchorPane ap_dashboard_eleve2;
     @javafx.fxml.FXML
@@ -75,6 +71,14 @@ public class dashboard_etudiant
     private Label labtotalheures;
     @javafx.fxml.FXML
     private Label labheuresrestantes;
+    @javafx.fxml.FXML
+    private TableColumn heurecolumn;
+    @javafx.fxml.FXML
+    private TableView tvlecons;
+    @javafx.fxml.FXML
+    private TableColumn dureecolumn;
+    @javafx.fxml.FXML
+    private TableColumn datecolumn;
 
     @javafx.fxml.FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -86,6 +90,7 @@ public class dashboard_etudiant
             eleveController = new EleveController();
             leconController = new LeconController();
             categorieController = new CategorieController();
+            vehiculeController = new VehiculeController();
             a = new Alert(Alert.AlertType.ERROR);
             // Afficher le prenom de l'eleve
             LabNomEtu.setText(Global.currentEleve.getPrenom());
@@ -101,11 +106,21 @@ public class dashboard_etudiant
             labtotallecon.setText(getTotalLeconPrice(Global.currentEleve.getCode()));
             //On affiche le prix total qu'il reste à payer
             labresteapayer.setText(getNonPayer(Global.currentEleve.getCode()));
+
             // Création TableView Moniteur
             nomColumn.setCellValueFactory(new PropertyValueFactory<>("Nom"));
             prenomColumn.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
+            datecolumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+            heurecolumn.setCellValueFactory(new PropertyValueFactory<>("Heure"));
+            dureecolumn.setCellValueFactory(new PropertyValueFactory<>("Duree"));
+
             ObservableList<Moniteur> moniteurs = FXCollections.observableArrayList(eleveController.getAllMoniteurByEleve(Global.currentEleve.getCode()));
             tvMoniteurs.setItems(moniteurs);
+
+            ObservableList<Lecon> lecons = FXCollections.observableArrayList(leconController.getAllLeconComingByEleve(Global.currentEleve.getCode()));
+            tvlecons.setItems(lecons);
+
+
             labtotalheures.setText(eleveController.getAllHeures(Global.currentEleve.getCode())+" heures ");
             labheuresrestantes.setText(leconController.getAllHoursToDo(Global.currentEleve.getCode())+" heures ");
             for (int i = 0; i < categorieController.getAllCategorieEleve(Global.currentEleve.getCode()).size();i++){
@@ -119,21 +134,21 @@ public class dashboard_etudiant
     }
 
     public String getTotalLeconPrice(int CodeEleve) throws SQLException {
-        int total = 0;
+        double total = 0;
         for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
-            total+= 55*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
+            total+= vehiculeController.getPrixbyImmatriculation(leconController.getAllLeconByEleve(CodeEleve).get(i).getImmatriculation())*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
         }
-        return String.valueOf(total)+ "€";
+        return String.format("%.2f", total)+ "€";
     }
 
     public String getNonPayer(int CodeEleve) throws SQLException {
-        int total = 0;
+        double total = 0;
         for (int i = 0; i < leconController.getAllLeconByEleve(CodeEleve).size();i++) {
             if (!leconController.getAllLeconByEleve(CodeEleve).get(i).isReglee()) {
-                total += 55*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
+                total +=  vehiculeController.getPrixbyImmatriculation(leconController.getAllLeconByEleve(CodeEleve).get(i).getImmatriculation())*leconController.getAllLeconByEleve(CodeEleve).get(i).getDuree();
             }
         }
-        return String.valueOf(total)+ "€";
+        return String.format("%.2f", total)+ "€";
     }
 
 
@@ -150,7 +165,7 @@ public class dashboard_etudiant
         stage.show();
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void Onclicked_dashboard_eleve(Event event) {
     }
 
@@ -165,10 +180,16 @@ public class dashboard_etudiant
     }
 
     @javafx.fxml.FXML
-    public void Onclicked_parametre_eleve(Event event) {
+    public void Onclicked_parametre_eleve(Event event) throws IOException {
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("parametre_eleve.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Start & go Parametres");
+        stage.setScene(scene);
+        stage.show();
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void Onclicked_planning_eleve(Event event) {
     }
 

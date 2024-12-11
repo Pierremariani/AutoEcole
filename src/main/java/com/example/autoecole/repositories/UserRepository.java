@@ -93,4 +93,40 @@ public class UserRepository implements RepositoryInterface<Users, String> {
         }
         return num;
     }
+
+    public String getlogin(int numcompte) throws SQLException {
+        String login = "";
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT login from compte where numCompte = ?");
+        preparedStatement.setInt(1,numcompte);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            login = (resultSet.getString("login"));
+        }
+        return login;
+    }
+
+    public String getMdp(int numcompte) throws SQLException {
+        String mdp = "";
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT motDePasse from compte where numCompte = ?");
+        preparedStatement.setInt(1,numcompte);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            mdp = (resultSet.getString("motDePasse"));
+        }
+        return mdp;
+    }
+
+    public void update(int numCompte, String login,String mdp) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE compte SET login=?,motDePasse=? WHERE numCompte = ?");
+        preparedStatement.setString(1, login);
+        preparedStatement.setString(2, mdp);
+        preparedStatement.setInt(3, numCompte);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
 }

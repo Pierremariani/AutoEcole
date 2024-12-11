@@ -28,6 +28,10 @@ public class EleveController {
     public void create(int CodeEleve,String Nom, String Prenom,String Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,String mail,int numCompte) throws SQLException {
         eleveService.create(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
     }
+
+    public void update(String Nom, String Prenom,String Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,String mail,int numCompte) throws SQLException {
+        eleveService.update(Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
+    }
     public ArrayList<Moniteur> getAllMoniteurByEleve(int CodeEleve) throws SQLException {
         return eleveService.getAllMoniteurByEleve(CodeEleve);
     }

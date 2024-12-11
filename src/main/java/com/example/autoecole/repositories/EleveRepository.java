@@ -96,4 +96,22 @@ public class EleveRepository implements RepositoryInterface<Eleve,String>{
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
+
+    public void update(Eleve eleve) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE eleve SET Nom=?,Prenom=?,Sexe=?,DateDeNaissance=?,Adresse1=?,CodePostal=?,Ville=?,Telephone=?,mail=? WHERE numCompte = ?");
+        preparedStatement.setString(1, eleve.getNom());
+        preparedStatement.setString(2, eleve.getPrenom());
+        preparedStatement.setString(3, eleve.getSexe());
+        preparedStatement.setString(4, eleve.getDatenaissance());
+        preparedStatement.setString(5, eleve.getAdresse());
+        preparedStatement.setInt(6, eleve.getPostal());
+        preparedStatement.setString(7, eleve.getVille());
+        preparedStatement.setInt(8, eleve.getTel());
+        preparedStatement.setString(9, eleve.getMail());
+        preparedStatement.setInt(10, eleve.getNumCompte());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
+
 }

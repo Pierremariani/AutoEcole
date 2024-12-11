@@ -18,4 +18,8 @@ public class VehiculeService {
         return vehiculeRepository.getByCodeCategorie(CodeCategorie,Date,Heure,duree);
     }
 
+    public Double getPrixbyImmatriculation(String Immatriculation) throws SQLException {
+        return vehiculeRepository.getPrixbyImmatriculation(Immatriculation);
+    }
+
 }

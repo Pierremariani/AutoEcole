@@ -39,4 +39,8 @@ public class LeconService {
     public int GenerateCodeLecon() throws SQLException {
         return leconRepository.GenerateCodeLecon();
     }
+
+    public ArrayList<Lecon> getAllLeconComingByEleve(int codeEleve) throws SQLException {
+        return  leconRepository.getAllLeconComingByEleve(codeEleve);
+    }
 }

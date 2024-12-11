@@ -34,4 +34,9 @@ public class EleveService {
         Eleve eleve = new Eleve(CodeEleve,Sexe,CodePostal,Telephone,Nom,Prenom,Ville,Adresse1, DateDeNaissance,mail,numCompte);
         eleveRepository.create(eleve);
     }
+
+    public void update(String Nom, String Prenom,String Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,String mail,int numCompte) throws SQLException {
+        Eleve e = new Eleve(Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
+        eleveRepository.update(e);
+    }
 }
