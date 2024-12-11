@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autoecole.DashboardMoniteur">
+   <children>
+      <TableView fx:id="tvmonilecons" layoutY="200.0" prefHeight="200.0" prefWidth="237.0">
+        <columns>
+          <TableColumn fx:id="columndatemoni" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="columnheuremoni" prefWidth="75.0" text="Heure" />
+            <TableColumn fx:id="columndureemoni" prefWidth="85.60003662109375" text="Duree" />
+        </columns>
+      </TableView>
+      <Label layoutX="20.0" layoutY="14.0" text="Nombre de leçons aujourdh'ui : " />
+      <Label fx:id="labnbjours" layoutX="196.0" layoutY="14.0" text="Label" />
+      <Label layoutX="20.0" layoutY="43.0" text="Nombre de leçons les 7 prochains jours :" />
+      <Label fx:id="labnbsemaine" layoutX="237.0" layoutY="43.0" text="Label" />
+      <Label layoutX="20.0" layoutY="75.0" text="Nombre de leçons les 30 prochains jours :" />
+      <Label fx:id="labnbmois" layoutX="251.0" layoutY="75.0" text="Label" />
+      <Label layoutX="307.0" layoutY="6.0" text="Chiffre d'affaire généré" />
+      <Label layoutX="20.0" layoutY="107.0" text="Nombre de leçons les 90 prochains jours :" />
+      <Label fx:id="labnbtrimestre" layoutX="251.0" layoutY="107.0" text="Label" />
+      <Label fx:id="labbenefjour" layoutX="454.0" layoutY="14.0" text="Label" />
+      <Label fx:id="labbenefsemaine" layoutX="454.0" layoutY="43.0" text="Label" />
+      <Label fx:id="labbenefmois" layoutX="454.0" layoutY="75.0" text="Label" />
+      <Label fx:id="labbeneftrimestre" layoutX="454.0" layoutY="107.0" text="Label" />
+      <Button layoutX="514.0" layoutY="11.0" mnemonicParsing="false" onAction="#decomoniclicked" text="Déconnexion" />
+   </children>
+</Pane>

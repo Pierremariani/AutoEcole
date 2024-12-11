@@ -43,4 +43,40 @@ public class LeconService {
     public ArrayList<Lecon> getAllLeconComingByEleve(int codeEleve) throws SQLException {
         return  leconRepository.getAllLeconComingByEleve(codeEleve);
     }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteur(int codeMoniteur) throws SQLException {
+        return leconRepository.getAllLeconComingByMoniteur(codeMoniteur);
+    }
+
+    public int nbleconjour(int CodeMoniteur) throws SQLException {
+        return leconRepository.nbleconjour(CodeMoniteur);
+    }
+
+    public int nbleconsemaine(int CodeMoniteur) throws SQLException {
+        return  leconRepository.nbleconsemaine(CodeMoniteur);
+    }
+
+    public int nbleconmois(int CodeMoniteur) throws SQLException {
+        return leconRepository.nbleconmois(CodeMoniteur);
+    }
+
+    public int nblecontrimestre(int CodeMoniteur) throws SQLException {
+        return  leconRepository.nblecontrimestre(CodeMoniteur);
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurtrimestre(int codeMoniteur) throws SQLException {
+        return leconRepository.getAllLeconComingByMoniteurtrimestre(codeMoniteur);
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurjour(int codeMoniteur) throws SQLException {
+        return leconRepository.getAllLeconComingByMoniteurjour(codeMoniteur);
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteursemaine(int codeMoniteur) throws SQLException {
+        return leconRepository.getAllLeconComingByMoniteursemaine(codeMoniteur);
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurmois(int codeMoniteur) throws SQLException {
+        return leconRepository.getAllLeconComingByMoniteurmois(codeMoniteur);
+    }
 }

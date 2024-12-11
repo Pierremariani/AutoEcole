@@ -56,7 +56,16 @@
                     <children>
                         <AnchorPane fx:id="ap_dashboard_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0">
                             <children>
-                                <AnchorPane layoutX="29.0" layoutY="122.0" prefHeight="151.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;" />
+                                <AnchorPane layoutX="29.0" layoutY="122.0" prefHeight="151.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                           <children>
+                              <TableView fx:id="tvlecons" prefHeight="137.0" prefWidth="251.0">
+                                <columns>
+                                  <TableColumn fx:id="datecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Date" />
+                                  <TableColumn fx:id="heurecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Heure" />
+                                    <TableColumn fx:id="dureecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Duree" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
                                 <AnchorPane layoutX="205.0" layoutY="122.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
                            <children>
                                       <Label fx:id="labnextdate" layoutX="6.0" layoutY="16.0" prefHeight="18.0" prefWidth="153.0" textFill="#aeb9e1" />
@@ -75,10 +84,8 @@
                            <children>
                               <TableView fx:id="tvMoniteurs" layoutX="-3.0" layoutY="-9.0" prefHeight="123.0" prefWidth="160.0">
                                 <columns>
-                                  <TableColumn fx:id="nomColumn" prefWidth="75.0" text="Nom" maxWidth="750.0"
-                                               minWidth="30.0"/>
-                                  <TableColumn fx:id="prenomColumn" prefWidth="75.0" text="Prénom" maxWidth="750.0"
-                                               minWidth="30.0"/>
+                                  <TableColumn fx:id="nomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Nom" />
+                                  <TableColumn fx:id="prenomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Prénom" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
@@ -99,20 +106,7 @@
                                     </font>
                                 </Label>
                         <Button layoutX="456.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#OnClicked_deconnexion_eleve" text="Déconnexion" />
-                        <AnchorPane layoutX="118.0" layoutY="302.0" prefHeight="110.0" prefWidth="246.0">
-                           <children>
-                              <TableView fx:id="tvlecons" layoutX="-3.0" layoutY="14.0" prefHeight="137.0" prefWidth="251.0">
-                                <columns>
-                                  <TableColumn fx:id="datecolumn" prefWidth="75.0" text="Date" maxWidth="750.0"
-                                               minWidth="30.0"/>
-                                  <TableColumn fx:id="heurecolumn" prefWidth="75.0" text="Heure" maxWidth="750.0"
-                                               minWidth="30.0"/>
-                                    <TableColumn fx:id="dureecolumn" prefWidth="75.0" text="Duree" maxWidth="750.0"
-                                                 minWidth="30.0"/>
-                                </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane layoutX="118.0" layoutY="302.0" prefHeight="110.0" prefWidth="246.0" />
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="ap_planning_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0" visible="false" />

@@ -46,4 +46,8 @@ public class UserService {
     public void update(int numCompte, String login,String mdp) throws SQLException {
         userRepository.update(numCompte,login,mdp);
     }
+
+    public int getStatut (String login) throws SQLException {
+        return userRepository.getStatut(login);
+    }
 }

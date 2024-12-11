@@ -43,4 +43,8 @@ public class UserController {
     public void update(int numCompte, String login,String mdp) throws SQLException {
         userService.update(numCompte,login,mdp);
     }
+
+    public int getStatut (String login) throws SQLException {
+        return userService.getStatut(login);
+    }
 }

@@ -109,8 +109,130 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
 
     public ArrayList<Lecon> getAllLeconComingByEleve(int codeEleve) throws SQLException {
         ArrayList<Lecon> lecons = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeEleve = ? and Date > CURRENT_DATE");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeEleve = ? and Date >= CURRENT_DATE");
         preparedStatement.setInt(1,codeEleve);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteur(int codeMoniteur) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE");
+        preparedStatement.setInt(1,codeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
+
+    public int nbleconjour(int CodeMoniteur) throws SQLException {
+        int nb = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(CodeLecon) FROM lecon WHERE Date = CURRENT_DATE AND CodeMoniteur = ?");
+        preparedStatement.setInt(1,CodeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            nb = (resultSet.getInt("count(CodeLecon)"));
+        }
+        return nb;
+    }
+
+    public int nbleconsemaine(int CodeMoniteur) throws SQLException {
+        int nb = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(CodeLecon) FROM lecon WHERE Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 1 WEEK) AND CodeMoniteur = ?");
+        preparedStatement.setInt(1,CodeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            nb = (resultSet.getInt("count(CodeLecon)"));
+        }
+        return nb;
+    }
+
+    public int nbleconmois(int CodeMoniteur) throws SQLException {
+        int nb = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(CodeLecon) FROM lecon WHERE Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 1 MONTH) AND CodeMoniteur = ?");
+        preparedStatement.setInt(1,CodeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            nb = (resultSet.getInt("count(CodeLecon)"));
+        }
+        return nb;
+    }
+
+    public int nblecontrimestre(int CodeMoniteur) throws SQLException {
+        int nb = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(CodeLecon) FROM lecon WHERE Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 3 MONTH) AND CodeMoniteur = ?");
+        preparedStatement.setInt(1,CodeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            nb = (resultSet.getInt("count(CodeLecon)"));
+        }
+        return nb;
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurjour(int codeMoniteur) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date = CURRENT_DATE");
+        preparedStatement.setInt(1,codeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteursemaine(int codeMoniteur) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 1 WEEK)");
+        preparedStatement.setInt(1,codeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurmois(int codeMoniteur) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 1 MONTH)");
+        preparedStatement.setInt(1,codeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            Lecon lec = new Lecon(resultSet.getInt("CodeLecon"),resultSet.getString("Heure"),resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodeEleve"),resultSet.getBoolean("Reglee"),resultSet.getString("Date"),resultSet.getString("Immatriculation"),resultSet.getInt("duree"));
+            lecons.add(lec);
+        }
+        return lecons;
+    }
+
+    public ArrayList<Lecon> getAllLeconComingByMoniteurtrimestre(int codeMoniteur) throws SQLException {
+        ArrayList<Lecon> lecons = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 3 MONTH)");
+        preparedStatement.setInt(1,codeMoniteur);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next())

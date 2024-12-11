@@ -19,6 +19,9 @@ public class Moniteur {
         this.ville = ville;
     }
 
+    public Moniteur() {
+    }
+
     public int getCode() {
         return Code;
     }

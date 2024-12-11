@@ -1,6 +1,7 @@
 package com.example.autoecole.repositories;
 
 import com.example.autoecole.models.Categorie;
+import com.example.autoecole.models.Eleve;
 import com.example.autoecole.models.Moniteur;
 import com.example.autoecole.models.Users;
 import com.example.autoecole.tools.DataSourceProvider;
@@ -70,6 +71,20 @@ public class MoniteurRepository implements RepositoryInterface<Moniteur,String> 
             }
         }
         return moniteurs;
+    }
+
+    public Moniteur setCurrentMoniteur(int numCompte) throws SQLException {
+        Moniteur m = new Moniteur();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeMoniteur,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,numCompte from moniteur where numCompte = ?");
+        preparedStatement.setInt(1,numCompte);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+            //int code, int codePostal, int tel, int numCompte, String nom, String prenom, String sexe, String datedenaissancen, String adresse, String ville
+            m = new Moniteur(resultSet.getInt("CodeMoniteur"),resultSet.getInt("CodePostal"),resultSet.getInt("Telephone"),resultSet.getInt("numCompte"),resultSet.getString("Nom"),resultSet.getString("Prenom"),resultSet.getString("Sexe"),resultSet.getString("DateDeNaissance"),resultSet.getString("Adresse1"),resultSet.getString("Ville"));
+        }
+        return m;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.autoecole;
 
 import com.example.autoecole.controllers.EleveController;
+import com.example.autoecole.controllers.MoniteurController;
 import com.example.autoecole.controllers.UserController;
 import com.example.autoecole.models.Eleve;
 import com.example.autoecole.models.Global;
@@ -30,6 +31,8 @@ public class HelloController implements Initializable {
     UserService userService;
 
     EleveController eleveController;
+
+    MoniteurController moniteurController;
 
     DataSourceProvider connexionBDD;
 
@@ -79,6 +82,7 @@ public class HelloController implements Initializable {
             userRepository = new UserRepository();
             userService = new UserService();
             eleveController = new EleveController();
+            moniteurController = new MoniteurController();
             a = new Alert(Alert.AlertType.ERROR);
             cbo_sexe.getItems().addAll("Homme","Femme");
             cbo_sexe.getSelectionModel().selectFirst();
@@ -114,14 +118,32 @@ public class HelloController implements Initializable {
     @FXML
     public void onConnextionButtonClicked(Event event) throws SQLException, IOException {
         if (userController.verifyLoginMdp(txtField_login_user.getText(),txtField_login_mdp.getText())) {
-            Global.idUser = userController.getNumCompte(txtField_login_user.getText());
-            Global.currentEleve = eleveController.setCurrentEleve(Global.idUser);
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard_etudiant.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Auto-école/Dashboard étudiant");
-            stage.setScene(scene);
-            stage.show();
+            //eleve
+            if (userController.getStatut(txtField_login_user.getText())== 0) {
+                Global.idUser = userController.getNumCompte(txtField_login_user.getText());
+                Global.currentEleve = eleveController.setCurrentEleve(Global.idUser);
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard_etudiant.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Auto-école/Dashboard étudiant");
+                stage.setScene(scene);
+                stage.show();
+            }
+            // moniteur
+            else if (userController.getStatut(txtField_login_user.getText())== 1) {
+                Global.idUser = userController.getNumCompte(txtField_login_user.getText());
+                Global.currentMoniteur = moniteurController.setCurrentMoniteur(Global.idUser);
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard_moniteur.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Auto-école/Dashboard moniteur");
+                stage.setScene(scene);
+                stage.show();
+            }
+            // admin
+            else {
+                System.out.println("administrateur");
+            }
         }
         else {
             a.setTitle("Erreur de saisie");

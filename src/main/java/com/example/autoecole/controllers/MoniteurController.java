@@ -22,4 +22,8 @@ public class MoniteurController {
     public ArrayList<Moniteur> getMoniteur(int codecategorie, String date,String heure) throws SQLException {
         return moniteurService.getMoniteur(codecategorie,date,heure);
     }
+
+    public Moniteur setCurrentMoniteur(int numCompte) throws SQLException {
+        return moniteurService.setCurrentMoniteur(numCompte);
+    }
 }
