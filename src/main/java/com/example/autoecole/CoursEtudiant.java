@@ -4,6 +4,7 @@ import com.example.autoecole.controllers.*;
 import com.example.autoecole.models.Categorie;
 import com.example.autoecole.models.Global;
 import com.example.autoecole.models.Moniteur;
+import com.example.autoecole.models.Vehicule;
 import com.example.autoecole.repositories.UserRepository;
 import com.example.autoecole.services.UserService;
 import com.example.autoecole.tools.DataSourceProvider;
@@ -133,10 +134,21 @@ public class CoursEtudiant implements Initializable {
     }
 
     public void updateMoniteur(int codeSelect) throws SQLException {
-        cboenseignant.setItems(FXCollections.observableArrayList(moniteurController.getMoniteur(codeSelect)));
+        cboenseignant.setItems(FXCollections.observableArrayList(moniteurController.getMoniteur(codeSelect,String.valueOf(datereserve.getValue()),String.valueOf(cbohours.getSelectionModel().getSelectedItem()))));
         cboenseignant.getSelectionModel().selectFirst();
         cbovehicule.setItems(FXCollections.observableArrayList(vehiculeController.getByCodeCategorie(codeSelect,String.valueOf(datereserve.getValue()),String.valueOf(cbohours.getSelectionModel().getSelectedItem()), Integer.parseInt(String.valueOf(cbodureetakelecon.getSelectionModel().getSelectedItem())))));
         cbovehicule.getSelectionModel().selectFirst();
+        if (cboenseignant.getValue() == null || cbovehicule.getValue() == null) {
+            a.setTitle("Aucune leçon disponible");
+            a.setHeaderText(null);
+            a.setContentText("Leçon indisponible au crénau renseigné");
+            a.showAndWait();
+            labenseignant.setDisable(true);
+            labvehicule.setDisable(true);
+            cbovehicule.setDisable(true);
+            cboenseignant.setDisable(true);
+            btnreserve.setDisable(true);
+        }
     }
 
     @javafx.fxml.FXML
@@ -148,22 +160,21 @@ public class CoursEtudiant implements Initializable {
             a.setContentText("Veuillez remplir tous les champs");
             a.showAndWait();
         }
-        else if (leconController.isDateAvailable(String.valueOf(datereserve.getValue()),String.valueOf(cbohours.getSelectionModel().getSelectedItem()))) {
+        else {
             Moniteur m = (Moniteur) cboenseignant.getSelectionModel().getSelectedItem();
             int codeMoniteur = m.getCode();
+            Vehicule v = (Vehicule) cbovehicule.getSelectionModel().getSelectedItem();
             leconController.create(leconController.GenerateCodeLecon(), String.valueOf(datereserve.getValue()),
                     String.valueOf(cbohours.getSelectionModel().getSelectedItem()),
                     codeMoniteur,
                     Global.currentEleve.getCode(),
-                    "567 EF 21",
+                    v.getImmatriculation(),
                     false,
                     Integer.parseInt(String.valueOf(cbodureetakelecon.getSelectionModel().getSelectedItem())));
-        }
-        else {
-            a.setTitle("Erreur disponibilité");
-            a.setHeaderText(null);
-            a.setContentText("Date ou heure déjà réservé");
-            a.showAndWait();
+                    a.setTitle("Succès");
+                    a.setHeaderText(null);
+                    a.setContentText("Lecon réservé avec succès");
+                    a.showAndWait();
         }
     }
 

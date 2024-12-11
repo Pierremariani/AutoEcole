@@ -19,7 +19,7 @@ public class MoniteurController {
         return moniteurService.getAll();
     }
 
-    public ArrayList<Moniteur> getMoniteur(int codecategorie) throws SQLException {
-        return moniteurService.getMoniteur(codecategorie);
+    public ArrayList<Moniteur> getMoniteur(int codecategorie, String date,String heure) throws SQLException {
+        return moniteurService.getMoniteur(codecategorie,date,heure);
     }
 }

@@ -31,7 +31,7 @@ public class MoniteurRepository implements RepositoryInterface<Moniteur,String> 
         return moniteurs;
     }
 
-    public ArrayList<Moniteur> getMoniteur(int codecategorie) throws SQLException {
+    public ArrayList<Moniteur> getMoniteur(int codecategorie , String date , String heure) throws SQLException {
         ArrayList<Moniteur> moniteurs = new ArrayList<>();
         ArrayList<Integer> codemoniteurs = new ArrayList<>();
 
@@ -46,8 +46,22 @@ public class MoniteurRepository implements RepositoryInterface<Moniteur,String> 
         }
 
         for (int i = 0; i < codemoniteurs.size();i++) {
-            PreparedStatement preparedStatement2 = connection.prepareStatement("SELECT CodeMoniteur,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,numCompte from moniteur where CodeMoniteur =?");
+            PreparedStatement preparedStatement2 = connection.prepareStatement("SELECT DISTINCT m.CodeMoniteur, m.Nom, m.Prenom, m.Sexe, m.DateDeNaissance, m.Adresse1, m.CodePostal, m.Ville, m.Telephone, m.numCompte " +
+                    "FROM moniteur m " +
+                    "LEFT JOIN lecon l ON m.CodeMoniteur = l.CodeMoniteur " +
+                    "WHERE m.CodeMoniteur = ? " +
+                    "AND m.CodeMoniteur NOT IN ( " +
+                    "    SELECT l.CodeMoniteur " +
+                    "    FROM lecon l " +
+                    "    WHERE l.Date = ? " +
+                    "    AND ? >= l.Heure " +
+                    "    AND ? < l.Heure+l.duree " +
+                    ");");
             preparedStatement2.setInt(1,codemoniteurs.get(i));
+            preparedStatement2.setString(2,date);
+            preparedStatement2.setString(3,heure);
+            preparedStatement2.setString(4,heure);
+
             ResultSet resultSet2 = preparedStatement2.executeQuery();
 
             while (resultSet2.next()) {
