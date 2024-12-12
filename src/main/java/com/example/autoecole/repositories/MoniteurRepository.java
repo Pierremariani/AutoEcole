@@ -91,4 +91,22 @@ public class MoniteurRepository implements RepositoryInterface<Moniteur,String> 
     public void create(Moniteur moniteur) throws SQLException {
 
     }
+
+
+    public void update(Moniteur moni) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE moniteur SET Nom=?,Prenom=?,Sexe=?,DateDeNaissance=?,Adresse1=?,CodePostal=?,Ville=?,Telephone=? WHERE numCompte = ?");
+        preparedStatement.setString(1, moni.getNom());
+        preparedStatement.setString(2, moni.getPrenom());
+        preparedStatement.setString(3, moni.getSexe());
+        preparedStatement.setString(4, moni.getDatedenaissancen());
+        preparedStatement.setString(5, moni.getAdresse());
+        preparedStatement.setInt(6, moni.getCodePostal());
+        preparedStatement.setString(7, moni.getVille());
+        preparedStatement.setInt(8, moni.getTel());
+        preparedStatement.setInt(9, moni.getNumCompte());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
+
 }

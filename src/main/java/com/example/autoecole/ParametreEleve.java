@@ -78,7 +78,7 @@ public class ParametreEleve implements Initializable {
             modiftfmdp.setText(userController.getMdp(Global.currentEleve.getNumCompte()));
             modiftfmail.setText(userController.getlogin(Global.currentEleve.getNumCompte()));
 
-            a = new Alert(Alert.AlertType.ERROR);
+            a = new Alert(Alert.AlertType.CONFIRMATION);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {

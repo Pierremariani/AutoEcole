@@ -26,4 +26,8 @@ public class MoniteurController {
     public Moniteur setCurrentMoniteur(int numCompte) throws SQLException {
         return moniteurService.setCurrentMoniteur(numCompte);
     }
+
+    public void update(String Nom, String Prenom,String Sexe,String DateDeNaissance,String Adresse1,int CodePostal,String Ville,int Telephone,int numCompte) throws SQLException {
+        moniteurService.update(Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,numCompte);
+    }
 }

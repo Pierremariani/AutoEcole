@@ -156,4 +156,14 @@ public class DashboardMoniteur implements Initializable {
         Licence l = (Licence) cbolicence.getSelectionModel().getSelectedItem();
         licenceController.addLicence(Global.currentMoniteur.getCode(),l.getCodeCategorie(), licenceController.GenerateLicenceCode());
     }
+
+    @javafx.fxml.FXML
+    public void onparamclicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) ((javafx.scene.Node) actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("parametre_moni.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Start & go Parametre");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

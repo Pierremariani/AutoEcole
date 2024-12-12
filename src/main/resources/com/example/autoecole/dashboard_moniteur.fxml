@@ -33,5 +33,6 @@
       <ComboBox fx:id="cbolicence" layoutX="293.0" layoutY="235.0" prefWidth="150.0" />
       <Button fx:id="btnlicence" layoutX="488.0" layoutY="235.0" mnemonicParsing="false" onAction="#onaddlicenceclicked" text="Ajouter" />
       <Label layoutX="317.0" layoutY="192.0" text="Ajouter une licence" />
+      <Button layoutX="488.0" layoutY="361.0" mnemonicParsing="false" onAction="#onparamclicked" text="Parametre" />
    </children>
 </Pane>

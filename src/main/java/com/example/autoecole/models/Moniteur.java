@@ -19,6 +19,20 @@ public class Moniteur {
         this.ville = ville;
     }
 
+    public Moniteur(String Nom,String Prenom, String Sexe,String DateDeNaissance, String Adresse1, int CodePostal, String Ville, int Telephone,int numCompte) {
+        this.nom = Nom;
+        this.prenom = Prenom;
+        this.sexe = Sexe;
+        this.datedenaissancen = DateDeNaissance;
+        this.adresse = Adresse1;
+        this.CodePostal = CodePostal;
+        this.ville = Ville;
+        this.Tel = Telephone;
+        this.numCompte = numCompte;
+    }
+
+
+
     public Moniteur() {
     }
 
