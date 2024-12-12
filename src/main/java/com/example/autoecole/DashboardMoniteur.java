@@ -1,10 +1,7 @@
 package com.example.autoecole;
 
 import com.example.autoecole.controllers.*;
-import com.example.autoecole.models.Eleve;
-import com.example.autoecole.models.Global;
-import com.example.autoecole.models.Lecon;
-import com.example.autoecole.models.Moniteur;
+import com.example.autoecole.models.*;
 import com.example.autoecole.repositories.UserRepository;
 import com.example.autoecole.services.UserService;
 import com.example.autoecole.tools.DataSourceProvider;
@@ -14,9 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -39,6 +34,8 @@ public class DashboardMoniteur implements Initializable {
     LeconController leconController;
 
     VehiculeController vehiculeController;
+
+    LicenceController licenceController;
 
     DataSourceProvider connexionBDD;
 
@@ -66,6 +63,10 @@ public class DashboardMoniteur implements Initializable {
     private Label labbenefmois;
     @javafx.fxml.FXML
     private Label labbeneftrimestre;
+    @javafx.fxml.FXML
+    private Button btnlicence;
+    @javafx.fxml.FXML
+    private ComboBox cbolicence;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,6 +79,7 @@ public class DashboardMoniteur implements Initializable {
             leconController = new LeconController();
             categorieController = new CategorieController();
             vehiculeController = new VehiculeController();
+            licenceController = new LicenceController();
 
             ObservableList<Lecon> lecons = FXCollections.observableArrayList(leconController.getAllLeconComingByMoniteur(Global.currentMoniteur.getCode()));
             columndatemoni.setCellValueFactory(new PropertyValueFactory<>("Date"));
@@ -93,6 +95,9 @@ public class DashboardMoniteur implements Initializable {
             labbenefsemaine.setText(getBenefSemaine());
             labbenefmois.setText(getBenefMois());
             labbeneftrimestre.setText(getBenefTrimestre());
+
+            cbolicence.setItems(FXCollections.observableArrayList(licenceController.getLicenceManquante(Global.currentMoniteur.getCode())));
+            cbolicence.getSelectionModel().selectFirst();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -144,5 +149,11 @@ public class DashboardMoniteur implements Initializable {
         stage.setTitle("Start & go Connexion / Inscription");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @javafx.fxml.FXML
+    public void onaddlicenceclicked(ActionEvent actionEvent) throws SQLException {
+        Licence l = (Licence) cbolicence.getSelectionModel().getSelectedItem();
+        licenceController.addLicence(Global.currentMoniteur.getCode(),l.getCodeCategorie(), licenceController.GenerateLicenceCode());
     }
 }
