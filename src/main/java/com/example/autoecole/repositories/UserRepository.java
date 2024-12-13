@@ -35,7 +35,7 @@ public class UserRepository implements RepositoryInterface<Users, String> {
 
     @Override
     public void create(Users users) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO compte(login,motDePasse,statut) values(?,?,?)" );
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO compte(login,motDePasse,statut) values(?,SHA2(?, 256),?)" );
         preparedStatement.setString(1,users.getLogin());
         preparedStatement.setString(2,users.getMdpUser());
         preparedStatement.setInt(3,users.getStatut());
@@ -69,7 +69,7 @@ public class UserRepository implements RepositoryInterface<Users, String> {
 
     public boolean verifyLoginMdp(String login, String mdp) throws SQLException {
         boolean goodlog = false;
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT numCompte from compte where login = ? and motDePasse = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT numCompte from compte where login = ? and motDePasse = SHA2(?, 256)");
         preparedStatement.setString(1,login);
         preparedStatement.setString(2,mdp);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -121,10 +121,18 @@ public class UserRepository implements RepositoryInterface<Users, String> {
     }
 
     public void update(int numCompte, String login,String mdp) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE compte SET login=?,motDePasse=? WHERE numCompte = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE compte SET login=?,motDePasse=SHA2(?, 256) WHERE numCompte = ?");
         preparedStatement.setString(1, login);
         preparedStatement.setString(2, mdp);
         preparedStatement.setInt(3, numCompte);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+
+    public void updatelogin(int numCompte, String login) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE compte SET login=? WHERE numCompte = ?");
+        preparedStatement.setString(1, login);
+        preparedStatement.setInt(2, numCompte);
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }

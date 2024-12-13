@@ -50,4 +50,8 @@ public class UserService {
     public int getStatut (String login) throws SQLException {
         return userRepository.getStatut(login);
     }
+
+    public void updatelogin(int numCompte, String login) throws SQLException {
+        userRepository.updatelogin(numCompte,login);
+    }
 }

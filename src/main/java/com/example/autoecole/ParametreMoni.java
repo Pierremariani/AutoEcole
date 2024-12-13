@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ParametreMoni implements Initializable {
@@ -81,8 +82,8 @@ public class ParametreMoni implements Initializable {
             vehiculeController = new VehiculeController();
 
             a = new Alert(Alert.AlertType.CONFIRMATION);
-
-            monimodiftfmdp.setText(userController.getMdp(Global.currentMoniteur.getNumCompte()));
+            //t
+            //monimodiftfmdp.setText(userController.getMdp(Global.currentMoniteur.getNumCompte()));
             modiftfmailmoni.setText(userController.getlogin(Global.currentMoniteur.getNumCompte()));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -107,7 +108,12 @@ public class ParametreMoni implements Initializable {
                 monimodiftfadresse.getText(), Integer.parseInt(monimodiftfcp.getText()), monimodiftfville.getText(),
                 Integer.parseInt(monimodiftftel.getText()), Global.currentMoniteur.getNumCompte());
 
-        userController.update(Global.currentMoniteur.getNumCompte(), modiftfmailmoni.getText(), monimodiftfmdp.getText());
+        if (Objects.equals(monimodiftfmdp.getText(), "")) {
+            userController.updatelogin(Global.currentMoniteur.getNumCompte(), modiftfmailmoni.getText());
+        }
+        else {
+            userController.update(Global.currentMoniteur.getNumCompte(), modiftfmailmoni.getText(), monimodiftfmdp.getText());
+        }
         Global.currentMoniteur = new Moniteur(monimodiftfnom.getText(), monimodiftfprenom.getText(), monimodiftfsexe.getText(), String.valueOf(monimodifdate.getValue()),
                 monimodiftfadresse.getText(), Integer.parseInt(monimodiftfcp.getText()), monimodiftfville.getText(),
                 Integer.parseInt(monimodiftftel.getText()), Global.currentMoniteur.getNumCompte());

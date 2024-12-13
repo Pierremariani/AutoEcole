@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ParametreEleve implements Initializable {
@@ -75,7 +76,7 @@ public class ParametreEleve implements Initializable {
             categorieController = new CategorieController();
             vehiculeController = new VehiculeController();
 
-            modiftfmdp.setText(userController.getMdp(Global.currentEleve.getNumCompte()));
+            //modiftfmdp.setText(userController.getMdp(Global.currentEleve.getNumCompte()));
             modiftfmail.setText(userController.getlogin(Global.currentEleve.getNumCompte()));
 
             a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -100,7 +101,12 @@ public class ParametreEleve implements Initializable {
                 modiftfadresse.getText(), Integer.parseInt(modiftfcp.getText()), modiftfville.getText(),
                 Integer.parseInt(modiftftel.getText()), modiftfmail.getText(), Global.currentEleve.getNumCompte());
 
-        userController.update(Global.currentEleve.getNumCompte(), modiftfmail.getText(), modiftfmdp.getText());
+        if (Objects.equals(modiftfmdp.getText(), "")) {
+            userController.updatelogin(Global.currentEleve.getNumCompte(), modiftfmail.getText());
+        }
+        else {
+            userController.update(Global.currentEleve.getNumCompte(), modiftfmail.getText(), modiftfmdp.getText());
+        }
         Global.currentEleve = new Eleve(Global.currentEleve.getCode(),modiftfnom.getText(), modiftfprenom.getText(), modiftfsexe.getText(), String.valueOf(modifdate.getValue()),
                 modiftfadresse.getText(), Integer.parseInt(modiftfcp.getText()), modiftfville.getText(),
                 Integer.parseInt(modiftftel.getText()), modiftfmail.getText(), Global.currentEleve.getNumCompte());
