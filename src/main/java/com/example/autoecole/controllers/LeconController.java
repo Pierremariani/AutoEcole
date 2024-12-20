@@ -31,8 +31,8 @@ public class LeconController {
         return leconService.getAllHoursToDo(CodeEleve);
     }
 
-    public boolean isDateAvailable(String Date, String horaires) throws SQLException {
-        return leconService.isDateAvailable(Date,horaires);
+    public boolean isDateAvailable(String Date) throws SQLException {
+        return leconService.isDateAvailable(Date);
     }
 
     public int GenerateCodeLecon() throws SQLException {

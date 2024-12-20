@@ -59,17 +59,16 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
         return duree;
     }
 
-    public boolean isDateAvailable(String Date , String horaires) throws SQLException {
-        boolean available = true;
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT Date FROM lecon WHERE Date = ? AND Heure = ?");
+    public boolean isDateAvailable(String Date) throws SQLException {
+        boolean available = false;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT CASE WHEN ? > CURRENT_DATE THEN 1 ELSE 0 END AS isFuture");
         preparedStatement.setString(1,Date);
-        preparedStatement.setString(2,horaires);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next())
         {
-            available = false;
+            available = resultSet.getBoolean("isFuture");
         }
         return available;
     }

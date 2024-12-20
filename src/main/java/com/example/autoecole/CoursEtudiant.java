@@ -122,6 +122,22 @@ public class CoursEtudiant implements Initializable {
             a.setHeaderText(null);
             a.setContentText("Veuillez sélectionner une date");
             a.showAndWait();
+            labenseignant.setDisable(true);
+            labvehicule.setDisable(true);
+            cbovehicule.setDisable(true);
+            cboenseignant.setDisable(true);
+            btnreserve.setDisable(true);
+        }
+        else if (!leconController.isDateAvailable(String.valueOf(datereserve.getValue()))){
+            a.setTitle("Erreur de saisie");
+            a.setHeaderText(null);
+            a.setContentText("Veuillez sélectionner une date à venir");
+            a.showAndWait();
+            labenseignant.setDisable(true);
+            labvehicule.setDisable(true);
+            cbovehicule.setDisable(true);
+            cboenseignant.setDisable(true);
+            btnreserve.setDisable(true);
         }
         else {
             labenseignant.setDisable(false);

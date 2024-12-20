@@ -98,6 +98,10 @@ public class DashboardMoniteur implements Initializable {
 
             cbolicence.setItems(FXCollections.observableArrayList(licenceController.getLicenceManquante(Global.currentMoniteur.getCode())));
             cbolicence.getSelectionModel().selectFirst();
+
+            if (cbolicence.getSelectionModel().getSelectedItem() == null) {
+                btnlicence.setDisable(true);
+            }
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {

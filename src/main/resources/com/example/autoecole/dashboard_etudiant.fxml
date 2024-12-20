@@ -4,11 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="414.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.autoecole.dashboard_etudiant">
@@ -27,10 +31,14 @@
                             <children>
                                 <VBox prefHeight="200.0" prefWidth="187.0">
                                     <children>
-                                        <Button fx:id="ap_cours_eleve" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onMouseClicked="#Onclicked_cours_eleve" prefHeight="41.0" prefWidth="161.0" style="-fx-background-color: transparent;" text="Cours" textFill="#aeb9e1">
+                                        <Button fx:id="ap_cours_eleve" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onMouseClicked="#Onclicked_cours_eleve" prefHeight="42.0" prefWidth="204.0" style="-fx-background-color: #1C2645;" text="Cours" textFill="WHITE">
                                             <font>
-                                                <Font name="Mona Sans Medium" size="12.0" />
+                                                <Font name="Mona Sans Thin" size="18.0" />
                                             </font>
+                                            <effect>
+                                                <InnerShadow height="14.04" radius="3.01" width="0.0">
+                                                </InnerShadow>
+                                            </effect>
                                         </Button>
                                     </children>
                                 </VBox>
@@ -38,9 +46,28 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="107.0" prefWidth="187.0">
                             <children>
-                                <Button fx:id="btn_param_eleve" alignment="TOP_LEFT" layoutX="28.0" layoutY="17.0" mnemonicParsing="false" onMouseClicked="#Onclicked_parametre_eleve" prefHeight="41.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Parametre" textAlignment="CENTER" textFill="#aeb9e1">
+                                <Button fx:id="btn_param_eleve" alignment="CENTER" layoutX="18.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#Onclicked_parametre_eleve" prefHeight="34.0" prefWidth="152.0" style="-fx-background-color: #1C2645;" text="Parametre" textAlignment="CENTER" textFill="#eaeaea" textOverrun="CLIP">
                                     <font>
-                                        <Font name="Mona Sans Medium" size="10.0" />
+                                        <Font name="Mona Sans Thin" size="15.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.3556230664253235" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </Button>
+                                <Button layoutX="43.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#OnClicked_deconnexion_eleve" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #1C2645;" text="Déconnexion" textFill="WHITE">
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.4597264528274536" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                    <font>
+                                        <Font name="Mona Sans Thin" size="11.0" />
                                     </font>
                                 </Button>
                             </children>
@@ -56,57 +83,123 @@
                     <children>
                         <AnchorPane fx:id="ap_dashboard_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0">
                             <children>
-                                <AnchorPane layoutX="29.0" layoutY="122.0" prefHeight="151.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <TableView fx:id="tvlecons" prefHeight="137.0" prefWidth="251.0">
-                                <columns>
-                                  <TableColumn fx:id="datecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Date" />
-                                  <TableColumn fx:id="heurecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Heure" />
-                                    <TableColumn fx:id="dureecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Duree" />
-                                </columns>
-                              </TableView>
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="205.0" layoutY="122.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                                      <Label fx:id="labnextdate" layoutX="6.0" layoutY="16.0" prefHeight="18.0" prefWidth="153.0" textFill="#aeb9e1" />
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="205.0" layoutY="187.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <Label prefHeight="22.0" prefWidth="151.0" text="Total des leçons" textFill="#faf8f8" />
-                              <Label fx:id="labtotallecon" layoutY="27.0" prefHeight="18.0" prefWidth="143.0" textFill="#faf7f7" />
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="208.0" layoutY="249.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <Label fx:id="labresteapayer" layoutX="9.0" layoutY="27.0" prefHeight="18.0" prefWidth="105.0" textFill="#eae4e4" />
-                              <Label layoutX="6.0" layoutY="5.0" prefHeight="18.0" prefWidth="154.0" text="Reste à payer" textFill="#faf1f1" />
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="381.0" layoutY="120.0" prefHeight="85.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <TableView fx:id="tvMoniteurs" layoutX="-3.0" layoutY="-9.0" prefHeight="123.0" prefWidth="160.0">
-                                <columns>
-                                  <TableColumn fx:id="nomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Nom" />
-                                  <TableColumn fx:id="prenomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Prénom" />
-                                </columns>
-                              </TableView>
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="381.0" layoutY="226.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <Label fx:id="labtotalheures" layoutX="13.0" layoutY="20.0" prefHeight="18.0" prefWidth="129.0" text="Label" textFill="#faf2f2" />
-                              <Label layoutY="-8.0" text="Nombre total d'heures" textFill="#fcfafa" />
-                           </children></AnchorPane>
-                                <AnchorPane layoutX="382.0" layoutY="301.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
-                           <children>
-                              <Label fx:id="labheuresrestantes" layoutX="7.0" layoutY="19.0" prefHeight="18.0" prefWidth="145.0" text="Label" textFill="#f4f2f2" />
-                              <Label layoutX="14.0" layoutY="-8.0" text="Il vous reste :" textFill="#f7f3f3" />
-                           </children></AnchorPane>
-                                <Label fx:id="LabNomEtu" layoutX="104.0" layoutY="57.0" text="nom étudiant" textFill="#FFFFFF" />
-                                <Label layoutX="18.0" layoutY="52.0" prefHeight="29.0" prefWidth="71.0" text="Bonjour" textFill="#f7f5f5">
+                                <AnchorPane layoutX="64.0" layoutY="112.0" prefHeight="120.0" prefWidth="228.0">
+                                    <children>
+                                        <TableView fx:id="tvlecons" layoutX="-28.0" layoutY="-7.0" prefHeight="126.0" prefWidth="218.0">
+                                            <columns>
+                                                <TableColumn fx:id="datecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Date" />
+                                                <TableColumn fx:id="heurecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Heure" />
+                                                <TableColumn fx:id="dureecolumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Duree" />
+                                            </columns>
+                                        </TableView>
+                                    </children></AnchorPane>
+                                <AnchorPane layoutX="33.0" layoutY="326.0" prefHeight="56.0" prefWidth="158.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <Label fx:id="labnextdate" layoutX="9.0" layoutY="26.0" prefHeight="22.0" prefWidth="134.0" text="label" textFill="WHITE">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                        <Label layoutX="9.0" layoutY="7.0" prefHeight="18.0" prefWidth="142.0" text="Prochain cours" textFill="WHITE">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <effect>
+                                        <DropShadow height="28.02" radius="14.68" width="32.7">
+                                            <color>
+                                                <Color opacity="0.5987841486930847" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect></AnchorPane>
+                                <AnchorPane layoutX="33.0" layoutY="259.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <Label layoutX="7.0" layoutY="4.0" prefHeight="22.0" prefWidth="151.0" text="Total des leçons" textFill="#faf8f8">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                        <Label fx:id="labtotallecon" layoutX="9.0" layoutY="27.0" prefHeight="18.0" prefWidth="143.0" text="label" textFill="#faf7f7">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                    </children>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </AnchorPane>
+                                <AnchorPane layoutX="204.0" layoutY="259.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <Label fx:id="labresteapayer" layoutX="9.0" layoutY="27.0" prefHeight="18.0" prefWidth="105.0" text="label" textFill="#eae4e4">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                        <Label layoutX="8.0" layoutY="7.0" prefHeight="18.0" prefWidth="154.0" text="Reste à payer" textFill="#faf1f1">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                    </children>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.6899999976158142" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect>
+                                </AnchorPane>
+                                <AnchorPane layoutX="385.0" layoutY="120.0" prefHeight="85.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <TableView fx:id="tvMoniteurs" layoutX="-3.0" layoutY="-17.0" prefHeight="131.0" prefWidth="154.0">
+                                            <columns>
+                                                <TableColumn fx:id="nomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Nom" />
+                                                <TableColumn fx:id="prenomColumn" maxWidth="750.0" minWidth="30.0" prefWidth="75.0" text="Prénom" />
+                                            </columns>
+                                        </TableView>
+                                    </children></AnchorPane>
+                                <AnchorPane layoutX="381.0" layoutY="256.0" prefHeight="56.0" prefWidth="154.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <Label fx:id="labtotalheures" layoutX="11.0" layoutY="27.0" prefHeight="18.0" prefWidth="129.0" text="Label" textFill="#faf2f2">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                        <Label layoutX="11.0" layoutY="7.0" text="Nombre total d'heures" textFill="#fcfafa">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                    </children>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.6899999976158142" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect></AnchorPane>
+                                <AnchorPane layoutX="382.0" layoutY="323.0" prefHeight="56.0" prefWidth="150.0" style="-fx-background-color: #1C2645; -fx-background-radius: 10;">
+                                    <children>
+                                        <Label fx:id="labheuresrestantes" layoutX="10.0" layoutY="31.0" prefHeight="18.0" prefWidth="145.0" text="Label" textFill="#f4f2f2">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                        <Label layoutX="9.0" layoutY="7.0" text="Il vous reste :" textFill="#f7f3f3">
+                                            <font>
+                                                <Font name="Mona Sans Thin" size="12.0" />
+                                            </font></Label>
+                                    </children>
+                                    <effect>
+                                        <DropShadow>
+                                            <color>
+                                                <Color opacity="0.6899999976158142" />
+                                            </color>
+                                        </DropShadow>
+                                    </effect></AnchorPane>
+                                <Label fx:id="LabNomEtu" layoutX="105.0" layoutY="53.0" text="nom étudiant" textFill="#FFFFFF">
                                     <font>
-                                        <Font size="19.0" />
+                                        <Font name="Mona Sans Thin" size="19.0" />
+                                    </font></Label>
+                                <Label layoutX="29.0" layoutY="48.0" prefHeight="29.0" prefWidth="71.0" text="Bonjour" textFill="#f7f5f5">
+                                    <font>
+                                        <Font name="Mona Sans Thin" size="19.0" />
                                     </font>
                                 </Label>
-                        <Button layoutX="456.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#OnClicked_deconnexion_eleve" text="Déconnexion" />
-                        <AnchorPane layoutX="118.0" layoutY="302.0" prefHeight="110.0" prefWidth="246.0" />
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="ap_planning_eleve2" layoutX="2.0" layoutY="2.0" prefHeight="414.0" prefWidth="569.0" visible="false" />
