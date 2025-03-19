@@ -79,6 +79,18 @@ public class EleveRepository implements RepositoryInterface<Eleve,String>{
         return null;
     }
 
+    public int getLecon(int CodeEleve) throws SQLException {
+        int heure = 0;
+        PreparedStatement preparedStatement = connection.prepareStatement(" Select sum(duree) from lecon where CodeEleve = ? and Date < CURRENT_DATE ; " );
+        preparedStatement.setInt(1,CodeEleve);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        resultSet.next();
+            heure = resultSet.getInt("sum(duree)");
+
+        return heure;
+    }
+
     @Override
     public void create(Eleve eleve) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO eleve(CodeEleve,Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte) values(?,?,?,?,?,?,?,?,?,?,?)" );

@@ -114,9 +114,10 @@ public class ParametreMoni implements Initializable {
         else {
             userController.update(Global.currentMoniteur.getNumCompte(), modiftfmailmoni.getText(), monimodiftfmdp.getText());
         }
-        Global.currentMoniteur = new Moniteur(monimodiftfnom.getText(), monimodiftfprenom.getText(), monimodiftfsexe.getText(), String.valueOf(monimodifdate.getValue()),
-                monimodiftfadresse.getText(), Integer.parseInt(monimodiftfcp.getText()), monimodiftfville.getText(),
-                Integer.parseInt(monimodiftftel.getText()), Global.currentMoniteur.getNumCompte());
+        Global.currentMoniteur = new Moniteur(Global.currentMoniteur.getCode(),Integer.parseInt(monimodiftfcp.getText()),
+                Integer.parseInt(monimodiftftel.getText()),Global.currentMoniteur.getNumCompte(), monimodiftfnom.getText(),
+                monimodiftfprenom.getText(), monimodiftfsexe.getText(), String.valueOf(monimodifdate.getValue()),
+                monimodiftfadresse.getText(), monimodiftfville.getText());
         a.setTitle("Succès");
         a.setHeaderText(null);
         a.setContentText("Changements enregistrés");

@@ -39,4 +39,8 @@ public class EleveService {
         Eleve e = new Eleve(Nom,Prenom,Sexe,DateDeNaissance,Adresse1,CodePostal,Ville,Telephone,mail,numCompte);
         eleveRepository.update(e);
     }
+
+    public int getLecon(int CodeEleve) throws SQLException {
+        return eleveRepository.getLecon(CodeEleve);
+    }
 }

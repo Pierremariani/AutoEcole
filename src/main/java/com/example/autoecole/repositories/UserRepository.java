@@ -137,6 +137,7 @@ public class UserRepository implements RepositoryInterface<Users, String> {
         preparedStatement.close();
     }
 
+
     public int getStatut (String login) throws SQLException {
         int statut = 0;
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT statut from compte where login = ?");

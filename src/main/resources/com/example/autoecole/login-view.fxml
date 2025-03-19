@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -59,7 +60,6 @@
                     </font>
                 </Text>
                 <TextField fx:id="txtField_login_user" layoutX="220.0" layoutY="185.0" />
-                <TextField fx:id="txtField_login_mdp" layoutX="220.0" layoutY="246.0" />
                 <Text fill="WHITE" layoutX="221.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisateur" wrappingWidth="147.10157775878906">
                     <font>
                         <Font name="Gentium Basic Bold" size="15.0" />
@@ -72,6 +72,7 @@
                 </Text>
                 <Button fx:id="btn_connexion" layoutX="257.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#onConnextionButtonClicked" text="Connexion" textAlignment="CENTER" />
                 <Label text="Label" />
+            <PasswordField fx:id="txtField_login_mdp" layoutX="220.0" layoutY="254.0" />
             </children>
         </AnchorPane>
     </children>

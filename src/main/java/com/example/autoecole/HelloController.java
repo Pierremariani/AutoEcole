@@ -39,8 +39,6 @@ public class HelloController implements Initializable {
     Alert a;
 
     @FXML
-    private TextField txtField_login_mdp;
-    @FXML
     private TextField txtField_login_user;
     @FXML
     private Label btn_inscription;
@@ -72,6 +70,8 @@ public class HelloController implements Initializable {
     private AnchorPane paneConnexion;
     @FXML
     private AnchorPane paneInscription;
+    @FXML
+    private PasswordField txtField_login_mdp;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -128,6 +128,12 @@ public class HelloController implements Initializable {
                 stage.setTitle("Auto-école/Dashboard étudiant");
                 stage.setScene(scene);
                 stage.show();
+                if (eleveController.getLecon(Global.currentEleve.getCode()) >= 15) {
+                    a.setTitle("Vous êtes éligible à passer votre permis");
+                    a.setHeaderText(null);
+                    a.setContentText("Vous êtes éligible à passer votre permis");
+                    a.showAndWait();
+                }
             }
             // moniteur
             else if (userController.getStatut(txtField_login_user.getText())== 1) {

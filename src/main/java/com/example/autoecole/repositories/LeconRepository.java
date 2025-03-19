@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LeconRepository implements RepositoryInterface<Lecon, String> {
 
@@ -228,6 +229,23 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
         return lecons;
     }
 
+    public HashMap<String, Integer> getAllSexeLecon() throws SQLException {
+        HashMap<String, Integer> sexes = new HashMap();
+
+        PreparedStatement preparedStatement = connection.prepareStatement("Select sum(duree),e.Sexe from lecon l join eleve e on l.CodeEleve = e.CodeEleve where l.CodeEleve IN (Select CodeEleve from eleve) GROUP BY e.Sexe; ");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while(resultSet.next()) {
+            sexes.put(resultSet.getString("e.Sexe"),resultSet.getInt("sum(duree)"));
+        }
+
+
+        preparedStatement.close();
+        resultSet.close();
+
+        return sexes;
+    }
+
     public ArrayList<Lecon> getAllLeconComingByMoniteurtrimestre(int codeMoniteur) throws SQLException {
         ArrayList<Lecon> lecons = new ArrayList<>();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT CodeLecon,Date,Heure,CodeMoniteur,CodeEleve,Immatriculation,Reglee,duree from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 3 MONTH)");
@@ -240,5 +258,20 @@ public class LeconRepository implements RepositoryInterface<Lecon, String> {
             lecons.add(lec);
         }
         return lecons;
+    }
+
+    public HashMap<String,Integer> getDatasGraphiqueLeconComing(int CodeMoniteur) throws SQLException {
+        HashMap<String, Integer> datas = new HashMap();
+
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*),date from lecon where CodeMoniteur = ? and Date >= CURRENT_DATE AND Date <= DATE_ADD(CURRENT_DATE, INTERVAL 3 MONTH) Group by Date");
+        preparedStatement.setInt(1,CodeMoniteur);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next())
+        {
+            datas.put(resultSet.getString("date"), resultSet.getInt("count(*)"));
+        }
+        preparedStatement.close();
+        resultSet.close();
+        return datas;
     }
 }

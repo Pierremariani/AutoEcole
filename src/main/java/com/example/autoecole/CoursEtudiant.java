@@ -189,7 +189,7 @@ public class CoursEtudiant implements Initializable {
                     Integer.parseInt(String.valueOf(cbodureetakelecon.getSelectionModel().getSelectedItem())));
                     a.setTitle("Succès");
                     a.setHeaderText(null);
-                    a.setContentText("Lecon réservé avec succès");
+                    a.setContentText("Lecon réservée avec succès");
                     a.showAndWait();
         }
     }

@@ -6,6 +6,7 @@ import com.example.autoecole.services.LeconService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LeconController {
 
@@ -76,6 +77,14 @@ public class LeconController {
 
     public ArrayList<Lecon> getAllLeconComingByMoniteurmois(int codeMoniteur) throws SQLException {
         return leconService.getAllLeconComingByMoniteurmois(codeMoniteur);
+    }
+
+    public HashMap<String, Integer> getAllSexeLecon() throws SQLException {
+        return leconService.getAllSexeLecon();
+    }
+
+    public HashMap<String,Integer> getDatasGraphiqueLeconComing(int CodeMoniteur) throws SQLException {
+        return leconService.getDatasGraphiqueLeconComing(CodeMoniteur);
     }
 
 }

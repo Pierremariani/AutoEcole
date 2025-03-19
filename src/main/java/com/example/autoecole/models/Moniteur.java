@@ -7,9 +7,9 @@ public class Moniteur {
     private String nom,prenom,sexe,datedenaissancen,adresse,ville;
 
     public Moniteur(int code, int codePostal, int tel, int numCompte, String nom, String prenom, String sexe, String datedenaissancen, String adresse, String ville) {
-        Code = code;
-        CodePostal = codePostal;
-        Tel = tel;
+        this.Code = code;
+        this.CodePostal = codePostal;
+        this.Tel = tel;
         this.numCompte = numCompte;
         this.nom = nom;
         this.prenom = prenom;

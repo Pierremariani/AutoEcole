@@ -11,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -18,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class DashboardMoniteur implements Initializable {
@@ -67,6 +71,10 @@ public class DashboardMoniteur implements Initializable {
     private Button btnlicence;
     @javafx.fxml.FXML
     private ComboBox cbolicence;
+    @javafx.fxml.FXML
+    private PieChart sexepie;
+    @javafx.fxml.FXML
+    private BarChart barmoni;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -98,6 +106,8 @@ public class DashboardMoniteur implements Initializable {
 
             cbolicence.setItems(FXCollections.observableArrayList(licenceController.getLicenceManquante(Global.currentMoniteur.getCode())));
             cbolicence.getSelectionModel().selectFirst();
+            SetGraph();
+            SetBarGraph();
 
             if (cbolicence.getSelectionModel().getSelectedItem() == null) {
                 btnlicence.setDisable(true);
@@ -170,4 +180,40 @@ public class DashboardMoniteur implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void SetGraph() throws SQLException {
+        sexepie.getData().clear();
+
+        HashMap<String, Integer> datasGraphique;
+
+        datasGraphique =  leconController.getAllSexeLecon();
+
+        for (String nomSexe : datasGraphique.keySet())
+        {
+            sexepie.getData().add(new PieChart.Data(nomSexe, datasGraphique.get(nomSexe)));
+        }
+
+        for (PieChart.Data entry : sexepie.getData()) {
+            Tooltip t = new Tooltip(entry.getPieValue()+ " : "+entry.getName());
+            t.setStyle("-fx-background-color:#3D9ADA");
+            Tooltip.install(entry.getNode(), t);
+        }
+    }
+
+    public void SetBarGraph() throws SQLException {
+
+        XYChart.Series<String,Number> serieGraphBar;
+
+        barmoni.getData().clear();
+
+        serieGraphBar = new XYChart.Series<>();
+        serieGraphBar.setName("Date");
+        for (String valeur : leconController.getDatasGraphiqueLeconComing(Global.currentMoniteur.getCode()).keySet())
+        {
+            serieGraphBar.getData().add(new XYChart.Data<>(valeur,leconController.getDatasGraphiqueLeconComing(Global.currentMoniteur.getCode()).get(valeur)));
+        }
+        barmoni.getData().add(serieGraphBar);
+
+    }
 }
+
